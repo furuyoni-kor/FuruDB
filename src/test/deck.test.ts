@@ -3,7 +3,7 @@ import {
   encodeDeckCode,
   decodeDeckCode,
   translateDeckCode,
-} from "..//utils/deck.utils";
+} from "../utils/deck.utils";
 
 import type { DeckCodeAttrs } from "@/utils/deck.utils";
 
