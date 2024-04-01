@@ -3,9 +3,9 @@ import {
   encodeDeckCode,
   decodeDeckCode,
   translateDeckCode,
-} from "../utils/deck.utils";
+} from "../utils/deck.util";
 
-import type { DeckCodeAttrs } from "@/utils/deck.utils";
+import type { DeckCodeAttrs } from "@/utils/deck.util";
 
 const YURINA_O_DECK: DeckCodeAttrs = {
   code: "NA-01",
