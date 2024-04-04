@@ -131,3 +131,35 @@ table {
 body {
   background-color: #fedadd;
 }
+
+main#main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 1280px;
+  min-height: 90vh;
+}
+
+header#main-header {
+  display: flex;
+  justify-content: center;
+  background-color: #ff5ab4;
+}
+
+header#main-header > section#header-content {
+  max-width: 1280px;
+  height: 5vh;
+}
+
+footer#main-footer {
+  display: flex;
+  justify-content: center;
+}
+
+footer#main-footer > section#footer-content {
+  max-width: 1280px;
+  height: 5vh;
+}

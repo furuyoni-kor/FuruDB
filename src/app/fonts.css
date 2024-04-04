@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "BaeminJua";
+  src: url("/fonts/BMJUA_ttf.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BaeminDoHyeon";
+  src: url("/fonts/BMDOHYEON_ttf.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BaeminYeonSung";
+  src: url("/fonts/BMYEONSUNG_ttf.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SangSangRock";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/SangSangRockOTF.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SangSangRock";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/SangSangRockOTF.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RidiBatang";
+  src: url("/fonts/RidiBatang.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
