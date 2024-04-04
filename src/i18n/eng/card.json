@@ -1,0 +1,15 @@
+{
+  "attackCard": {
+    "distance": "Distance",
+    "aura": "Aura",
+    "life": "Life"
+  },
+  "enhancementCard": {
+    "enhancement": "Enhancement"
+  },
+  "specialCard": {
+    "cost": "Cost"
+  },
+  "extraCard": "ExtraCard",
+  "revision": "Revision"
+}

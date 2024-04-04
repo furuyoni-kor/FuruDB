@@ -1,0 +1,15 @@
+{
+  "attackCard": {
+    "distance": "거리",
+    "aura": "오라",
+    "life": "라이프"
+  },
+  "enhancementCard": {
+    "enhancement": "봉납"
+  },
+  "specialCard": {
+    "cost": "비용"
+  },
+  "extraCard": "추가패",
+  "revision": "개정"
+}
