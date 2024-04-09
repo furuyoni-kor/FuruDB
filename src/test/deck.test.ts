@@ -3,6 +3,8 @@ import {
   encodeDeckCode,
   decodeDeckCode,
   translateDeckCode,
+  validateDeckWithCard,
+  validateDeck,
 } from "../utils/deck.util";
 
 import type { DeckCodeAttrs } from "@/utils/deck.util";
