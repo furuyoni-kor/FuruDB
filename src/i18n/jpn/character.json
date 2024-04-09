@@ -1,8 +1,11 @@
 {
   "name": "名前",
   "ability": "能力",
-  "weapon": "象徵 武器",
+  "mode": "モード",
+  "weapon": "武器",
+  "sub": "補助",
   "normalCard": "通常札",
   "specialCard": "切札",
-  "extraCard": "追加札"
+  "asideCard": "追加札",
+  "characterList": "女神リスト"
 }

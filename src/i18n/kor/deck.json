@@ -1,0 +1,20 @@
+{
+  "enter": "입력",
+  "enterCode": "코드 입력",
+  "createDeck": "덱 생성",
+  "copy": "복사",
+  "saveAsImage": "이미지로 저장",
+  "create": {
+    "selectMegami": "여신 선택",
+    "buildDeck": "덱 구축",
+    "createCode": "덱 코드 생성"
+  },
+  "build": {
+    "normal": "통상패",
+    "special": "비장패",
+    "selected": "선택됨"
+  },
+  "normalCard": "통상패",
+  "specialCard": "비장패",
+  "code": "덱 코드"
+}

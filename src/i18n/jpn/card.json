@@ -8,8 +8,12 @@
     "enhancement": "封印"
   },
   "specialCard": {
-    "cost": "Cost"
+    "cost": "消費"
   },
   "extraCard": "追加札",
-  "revision": "改正"
+  "deprecatedCard": {
+    "season": "シーズン"
+  },
+  "revision": "改正",
+  "toRecentCard": "最新のカードへ"
 }

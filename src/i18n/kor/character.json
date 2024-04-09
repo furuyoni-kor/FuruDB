@@ -1,8 +1,11 @@
 {
   "name": "이름",
   "ability": "능력",
-  "weapon": "상징 무기",
+  "mode": "모드",
+  "weapon": "무기",
+  "sub": "보조",
   "normalCard": "통상패",
   "specialCard": "비장패",
-  "extraCard": "추가패"
+  "asideCard": "추가패",
+  "characterList": "여신 리스트"
 }

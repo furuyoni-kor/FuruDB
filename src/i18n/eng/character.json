@@ -1,8 +1,11 @@
 {
   "name": "Name",
   "ability": "Ability",
-  "weapon": "Symbol Weapon",
+  "mode": "Mode",
+  "weapon": "Weapon",
+  "sub": "Sub",
   "normalCard": "Normal Card",
   "specialCard": "Special Card",
-  "extraCard": "Extra Card"
+  "asideCard": "Aside Card",
+  "characterList": "Megami List"
 }

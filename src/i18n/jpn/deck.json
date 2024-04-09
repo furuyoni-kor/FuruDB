@@ -1,0 +1,20 @@
+{
+  "enter": "入力",
+  "enterCode": "コード入力",
+  "createDeck": "デッキ生成",
+  "copy": "コピー",
+  "saveAsImage": "イメージで保存",
+  "create": {
+    "selectMegami": "女神選択",
+    "buildDeck": "デッキ構築",
+    "createCode": "デッキコード生成"
+  },
+  "build": {
+    "normal": "通常札",
+    "special": "切札",
+    "selected": "選択"
+  },
+  "normalCard": "通常札",
+  "specialCard": "切札",
+  "code": "デッキコード"
+}

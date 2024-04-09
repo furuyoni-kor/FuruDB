@@ -11,5 +11,9 @@
     "cost": "비용"
   },
   "extraCard": "추가패",
-  "revision": "개정"
+  "deprecatedCard": {
+    "season": "시즌"
+  },
+  "revision": "개정",
+  "toRecentCard": "최신 카드로"
 }

@@ -11,5 +11,9 @@
     "cost": "Cost"
   },
   "extraCard": "ExtraCard",
-  "revision": "Revision"
+  "deprecatedCard": {
+    "season": "Season"
+  },
+  "revision": "Revision",
+  "toRecentCard": "To recent version"
 }

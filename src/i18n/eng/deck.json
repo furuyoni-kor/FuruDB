@@ -1,0 +1,20 @@
+{
+  "enter": "Enter",
+  "enterCode": "Enter Code",
+  "createDeck": "Create Deck",
+  "copy": "Copy",
+  "saveAsImage": "Save As Image",
+  "create": {
+    "selectMegami": "Select Megami",
+    "buildDeck": "Build Deck",
+    "createCode": "Create Code"
+  },
+  "build": {
+    "normal": "Normal",
+    "special": "Special",
+    "selected": "Selected"
+  },
+  "normalCard": "Normal Card",
+  "specialCard": "Special Card",
+  "code": "Code"
+}
