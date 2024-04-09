@@ -1,5 +1,5 @@
 import type { Season } from "@/types/index.type";
-import type { CharacterName } from "@/types/character.type";
+import type { EngCharacterName } from "@/types/character.type";
 
 export type KorCardType = "공격" | "행동" | "부여" | "미정";
 export type KorCardSubType = "대응" | "전력" | "미정";
@@ -57,7 +57,7 @@ interface BaseCard {
   description: string;
   category: CardCategory;
   code: string;
-  character: CharacterName;
+  character: EngCharacterName;
   relatedExtraCards: {
     name: string;
     fullCode: string;
