@@ -24,6 +24,7 @@
     "@babel/core": "^7.24.3",
     "@babel/preset-env": "^7.24.3",
     "@babel/preset-typescript": "^7.24.1",
+    "@cloudflare/next-on-pages": "^1.11.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20",
