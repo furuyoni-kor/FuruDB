@@ -4,6 +4,11 @@ const config = {
   testEnvironment: "node",
   verbose: true,
   collectCoverage: true,
+  roots: ["<rootDir>"],
+  moduleDirectories: ["node_modules", "src"],
+  moduleNameMapper: {
+    "@/(.*)": ["<rootDir>/src/$1"],
+  },
 };
 
 module.exports = config;
