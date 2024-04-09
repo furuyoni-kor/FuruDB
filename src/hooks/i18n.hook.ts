@@ -27,7 +27,8 @@ export const useI18n = () => {
   const t = (query: string) => {
     const keyArray = query.split(".");
 
-    if (keyArray.length < 2) throw new Error("I18n query is inappropriate.");
+    if (keyArray.length < 2)
+      throw new Error(`I18n query is inappropriate. (query: ${query})`);
 
     let langKey: string | undefined = "";
     let tValue = i18n;
@@ -43,15 +44,15 @@ export const useI18n = () => {
 
           if (keyArray.length === 0) {
             if (typeof tValue === "string") return tValue;
-            else throw new Error("I18n query path is different.");
+            else throw new Error("I18n query path is unavailable.");
           }
           continue;
         }
 
-        throw new Error("I18n query key is not matched.");
+        throw new Error(`I18n query key is not matched. (query: ${query})`);
       }
 
-      throw new Error("I18n query key is not exist.");
+      throw new Error(`I18n query key is not exist. (query: ${query})`);
     }
   };
 
