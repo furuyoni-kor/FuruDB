@@ -339,4 +339,6 @@ const DeckDetailPage: NextPage = () => {
   );
 };
 
+export const runtime = "edge";
+
 export default DeckDetailPage;

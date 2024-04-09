@@ -77,4 +77,6 @@ const CardPage: NextPage = () => {
   );
 };
 
+export const runtime = "edge";
+
 export default CardPage;

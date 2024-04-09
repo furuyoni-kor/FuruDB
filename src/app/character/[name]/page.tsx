@@ -189,4 +189,6 @@ const CharacterDetailPage: NextPage = () => {
   );
 };
 
+export const runtime = "edge";
+
 export default CharacterDetailPage;
