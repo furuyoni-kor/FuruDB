@@ -2,15 +2,34 @@ import type { Card } from "./card.type";
 
 export type CharacterMode = "O" | "A1" | "A2" | "AA1";
 
-type CharacterData = {
-  [key in CharacterMode]: string;
-};
+export type KorCharacterName =
+  | "유리나"
+  | "사이네"
+  | "히미카"
+  | "토코요"
+  | "오보로"
+  | "유키히"
+  | "신라"
+  | "하가네"
+  | "치카게"
+  | "쿠루루"
+  | "탈리야"
+  | "라이라"
+  | "우츠로"
+  | "호노카"
+  | "코르누"
+  | "야츠하"
+  | "하츠미"
+  | "미즈키"
+  | "메구미"
+  | "카나에"
+  | "카무이"
+  | "렌리"
+  | "아키나"
+  | "시스이"
+  | "미소라";
 
-type CharacterCardData = {
-  [key in CharacterMode]: Card[] | string[];
-};
-
-export type CharacterName =
+export type EngCharacterName =
   | "akina"
   | "chikage"
   | "hagane"
@@ -37,32 +56,55 @@ export type CharacterName =
   | "yukihi"
   | "yurina";
 
+export type JpnCharacterName =
+  | "ユリナ"
+  | "サイネ"
+  | "ヒミカ"
+  | "トコヨ"
+  | "オボロ"
+  | "ユキヒ"
+  | "シンラ"
+  | "ハガネ"
+  | "チカゲ"
+  | "クルル"
+  | "サリヤ"
+  | "ライラ"
+  | "ウツロ"
+  | "ホノカ"
+  | "コルヌ"
+  | "ヤツハ"
+  | "ハツミ"
+  | "ミズキ"
+  | "メグミ"
+  | "カナヱ"
+  | "カムヰ"
+  | "レンリ"
+  | "アキナ"
+  | "シスイ"
+  | "ミソラ";
+
+export type CharacterName =
+  | KorCharacterName
+  | EngCharacterName
+  | JpnCharacterName;
+
 export interface Character {
   code: string;
   mode: CharacterMode;
-  name: string;
-  ename: CharacterName;
+  name: CharacterName;
+  modes: CharacterMode[];
+  ename: EngCharacterName;
   imagePath: string;
   abilityKeyword: string;
   abilityDescription: string;
   symbolWeapon: string;
   symbolSub: string;
-  normalCards: Card[] | string[];
-  specialCards: Card[] | string[];
-  extraCards: Card[] | string[];
+  normalCards: Card[];
+  specialCards: Card[];
+  extraCards: Card[];
 }
 
-export interface CharacterWithAll {
-  code: string;
-  mode: CharacterMode[];
-  name: CharacterData;
-  ename: CharacterName;
-  imagePath: CharacterData;
-  abilityKeyword: string;
-  abilityDescription: string;
-  symbolWeapon: string;
-  symbolSub: CharacterData;
-  normalCards: CharacterCardData;
-  specialCards: CharacterCardData;
-  extraCards: CharacterCardData;
-}
+export type CharacterDeckInfo = Pick<
+  Character,
+  "name" | "ename" | "code" | "mode"
+>;
