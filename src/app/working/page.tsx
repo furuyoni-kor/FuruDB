@@ -44,7 +44,7 @@ const WorkingPage: NextPage = () => {
         ref={imageRef}
         alt="hagane-chibi"
         title="working"
-        className="moveLeft"
+        className="move-left"
         src="/images/chibi/hagane.webp"
         style={{
           transform: "scaleX(-1) translateX(-500px)",
