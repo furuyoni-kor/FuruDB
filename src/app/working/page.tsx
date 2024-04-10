@@ -13,7 +13,7 @@ import {
 import type { NextPage } from "next";
 
 const WorkingPage: NextPage = () => {
-  const classList = ["moveLeft", "workLeft", "moveRight", "workRight"];
+  const classList = ["move-left", "work-left", "move-right", "work-right"];
 
   const I18n = useI18nContext();
 

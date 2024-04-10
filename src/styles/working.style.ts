@@ -63,19 +63,19 @@ export const WorkingImage = styled.img`
   height: 495px;
   margin-bottom: 64px;
 
-  &.workLeft {
+  &.work-left {
     animation: ${workingLeftAnimation} 0.5s infinite alternate;
   }
 
-  &.workRight {
+  &.work-right {
     animation: ${workingRightAnimation} 0.5s infinite alternate;
   }
 
-  &.moveLeft {
+  &.move-left {
     animation: ${moveLeftAnimation} 1s forwards alternate;
   }
 
-  &.moveRight {
+  &.move-right {
     animation: ${moveRightAnimation} 1s forwards alternate;
   }
 `;
