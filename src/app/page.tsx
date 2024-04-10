@@ -67,6 +67,7 @@ const MainPage: NextPage = () => {
           >;
 
           setRotation(data.rotation);
+          setEngRotation(data.rotation as EngCharacterName[]);
           setCharacterList(characters);
           setOriginWarDatetime({
             startFrom: data.startFrom,

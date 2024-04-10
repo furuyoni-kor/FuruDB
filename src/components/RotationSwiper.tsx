@@ -59,7 +59,7 @@ const RotationSwiper: FC<RotationSwiperProps> = ({
   return (
     <SwiperWrapper ref={swiperRef}>
       {engRotation.map((name, index) => (
-        <Link key={name} href={`/character/${name}`}>
+        <Link key={`swiper-${name}`} href={`/character/${name}`}>
           <RotationWrapper>
             <Image
               alt={name}
@@ -80,7 +80,7 @@ const RotationSwiper: FC<RotationSwiperProps> = ({
         Array({ length: rotation.length % PER_ICON })
           .fill("")
           .map((_, index) => (
-            <RotationWrapper key={`empty-area-${index}`}>
+            <RotationWrapper key={`swiper-empty-area-${index}`}>
               <EmptyContent style={{ width: ICON.width }} />
             </RotationWrapper>
           ))}
