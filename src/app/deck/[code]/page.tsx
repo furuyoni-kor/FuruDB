@@ -191,10 +191,9 @@ const DeckDetailPage: NextPage = () => {
 
           setNormalCards(normalCards);
           setSpecialCards(specialCards);
-
-          setLoading(false);
         }
       }
+      setLoading(false);
     };
 
     fetchCharacters();

@@ -90,8 +90,8 @@ const CharacterDetailPage: NextPage = () => {
 
         setCharacter(character);
         setLanguage(lang);
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchCharacter();
