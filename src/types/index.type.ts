@@ -1,3 +1,5 @@
+import type { CharacterName } from "./character.type";
+
 export type Language = "kor" | "jpn" | "eng";
 
 export type Season =
@@ -13,3 +15,9 @@ export type Season =
   | "S8"
   | "S8-2"
   | "S9";
+
+export interface Rotation {
+  startFrom: string;
+  endAt: string;
+  rotation: CharacterName[];
+}

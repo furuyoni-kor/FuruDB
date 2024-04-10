@@ -2,6 +2,33 @@
 
 import styled from "styled-components";
 
+export const MainPageWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const RecentCharacterRotationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 32px;
+`;
+
+export const RecentCharacterRotationTitle = styled.h2`
+  display: flex;
+  align-items: center;
+  column-gap: 32px;
+  font-family: "SangSangRock";
+  font-size: 5rem;
+`;
+
+export const OriginWarPeriod = styled.span`
+  font-size: 3rem;
+`;
+
+export const RecentCardListWrapper = styled.aside``;
+
 export const BaseButton = styled.button`
   padding: 16px 32px;
   font-family: "SangSangRock";

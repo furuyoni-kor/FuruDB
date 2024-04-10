@@ -12,8 +12,16 @@ export const BASE_METADATA: Metadata = {
     title: "FuruDB - All about Furuyoni, Board Game made by BakaFire Party.",
     description:
       "FuruDB - All about Furuyoni, Board Game made by BakaFire Party.",
-    images: "/images/twit_icon/21.A1.webp",
     siteName: "FuruDB",
+    url: "https://furudb.pages.dev/",
+    images: [
+      {
+        url: "/images/twit_icon/21.A1.webp",
+        width: 400,
+        height: 400,
+      },
+    ],
+    type: "website",
   },
 };
 

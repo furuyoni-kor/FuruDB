@@ -1,3 +1,4 @@
+import IndexJson from "./index.json";
 import HeaderJson from "./header.json";
 import FooterJson from "./footer.json";
 import ErrorJson from "./error.json";
@@ -7,6 +8,7 @@ import DeckJson from "./deck.json";
 import LoadingJSON from "./loading.json";
 
 export default {
+  index: IndexJson,
   header: HeaderJson,
   footer: FooterJson,
   error: ErrorJson,
