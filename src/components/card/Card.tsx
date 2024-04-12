@@ -22,13 +22,14 @@ import {
   CardTag,
   CardTitle,
   CardCategoryText,
-  CardRelatedExtraCards,
+  CardRelatedAsideCards,
   CardRevision,
   CardInfoTitle,
   CardInfoTitleText,
   CardInfoContent,
   CardValueWrapper,
   CardLinkWrapper,
+  CardYomigana,
 } from "@/styles/card.style";
 
 import type { FC } from "react";
@@ -58,6 +59,21 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     };
   }, []);
 
+  const parseJpnName = (name: string) => {
+    const splitedName = name.split("\r\n");
+
+    if (splitedName.length === 2) {
+      const [yomigana, name] = splitedName;
+      return (
+        <>
+          <CardYomigana>{yomigana}</CardYomigana>
+          <CardName>{name}</CardName>
+        </>
+      );
+    }
+    return <CardName>{name}</CardName>;
+  };
+
   return (
     <CardContainer>
       <CardImageWrapper>
@@ -79,7 +95,11 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
       </CardImageWrapper>
       <CardDataWrapper>
         <CardTitle>
-          <CardName>{card.name}</CardName>
+          {I18n.language === "jpn" ? (
+            parseJpnName(card.name)
+          ) : (
+            <CardName>{card.name}</CardName>
+          )}
           <CardCode>{card.fullCode}</CardCode>
         </CardTitle>
         <CardInfoWrapper>
@@ -129,7 +149,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
         </CardDescription>
         {!(card as DeprecatedCard).season &&
           card.relatedExtraCards.length > 0 && (
-            <CardRelatedExtraCards>
+            <CardRelatedAsideCards>
               <CardInfoTitle>
                 <CardInfoTitleText>
                   {I18n.t("card.extraCard")}
@@ -144,7 +164,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
                   </Link>
                 ))}
               </CardInfoContent>
-            </CardRelatedExtraCards>
+            </CardRelatedAsideCards>
           )}
         {!(card as DeprecatedCard).season && card.revision.length > 0 && (
           <CardRevision>
