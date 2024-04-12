@@ -61,7 +61,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     };
   }, []);
 
-  const parseJpnName = (
+  const parseMainName = (
     name: string,
     code: keyof typeof KOR_RUBY_WHITESPACE | string
   ) => {
@@ -102,6 +102,16 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     return <CardName>{name}</CardName>;
   };
 
+  const parseExtraName = (name: string) => {
+    const splitedName = name.split("\r\n");
+
+    if (splitedName.length === 2) {
+      const [ruby, name] = splitedName;
+      return name;
+    }
+    return name;
+  };
+
   return (
     <CardContainer>
       <CardImageWrapper>
@@ -123,7 +133,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
       </CardImageWrapper>
       <CardDataWrapper>
         <CardTitle>
-          {parseJpnName(card.name, card.fullCode)}
+          {parseMainName(card.name, card.fullCode)}
           <CardCode>{card.fullCode}</CardCode>
         </CardTitle>
         <CardInfoWrapper>
@@ -184,7 +194,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
               >
                 {card.relatedExtraCards.map(({ name, fullCode }) => (
                   <Link key={fullCode} href={`/card//${fullCode}`}>
-                    {name}
+                    {parseExtraName(name)}
                   </Link>
                 ))}
               </CardInfoContent>
