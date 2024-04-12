@@ -51,7 +51,7 @@ const WorkingPage: NextPage = () => {
         }}
       />
       {(I18n.t("error.work") as string).split("\r\n").map((text) => (
-        <WorkingText>{text}</WorkingText>
+        <WorkingText key={text}>{text}</WorkingText>
       ))}
     </WorkingPageWrapper>
   );

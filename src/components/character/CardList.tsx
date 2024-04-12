@@ -15,13 +15,16 @@ import {
 
 import type { FC } from "react";
 import type { Card } from "@/types/card.type";
+import type { CharacterMode, EngCharacterName } from "@/types/character.type";
 
 interface CardListProps {
+  char: EngCharacterName;
+  mode: CharacterMode;
   cards: Card[];
   category: "normal" | "special" | "aside";
 }
 
-const CardList: FC<CardListProps> = ({ cards, category }) => {
+const CardList: FC<CardListProps> = ({ char, mode, cards, category }) => {
   const CARD = {
     width: 125,
     height: 175,
@@ -50,7 +53,10 @@ const CardList: FC<CardListProps> = ({ cards, category }) => {
       </CharacterCardText>
       <CharacterCardList>
         {cards.map((card) => (
-          <Link key={card.fullCode} href={`/card/${card.fullCode}`}>
+          <Link
+            key={card.fullCode}
+            href={`/card/${card.fullCode}?from=character&name=${char}&mode=${mode}`}
+          >
             <Image
               src={`/images/card/${I18n.language}/${convertCodeToImage(
                 card.fullCode

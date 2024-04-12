@@ -2,6 +2,17 @@
 
 import styled from "styled-components";
 
+export const CardPageWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  row-gap: 64px;
+`;
+
+export const CardPreviousLinkWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const CardContainer = styled.article`
   display: flex;
   width: 1200px;
@@ -44,7 +55,7 @@ export const CardDataWrapper = styled.section`
   border-radius: 4px;
 `;
 
-export const CardTitle = styled.h3`
+export const CardTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,7 +78,7 @@ export const CardName = styled.h1`
   font-weight: 700;
 `;
 
-export const CardCode = styled.h2`
+export const CardCode = styled.span`
   color: #dddddd;
   font-weight: 700;
 `;
@@ -144,7 +155,7 @@ export const CardDescription = styled.div`
   word-break: break-word;
 `;
 
-export const CardInfoTitle = styled.h3`
+export const CardInfoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

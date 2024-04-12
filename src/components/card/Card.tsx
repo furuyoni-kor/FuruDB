@@ -193,7 +193,10 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
                 style={{ flexDirection: "column", padding: 16, rowGap: 16 }}
               >
                 {card.relatedExtraCards.map(({ name, fullCode }) => (
-                  <Link key={fullCode} href={`/card//${fullCode}`}>
+                  <Link
+                    key={fullCode}
+                    href={`/card/${fullCode}?from=card&code=${card.fullCode}`}
+                  >
                     {parseExtraName(name)}
                   </Link>
                 ))}
@@ -209,7 +212,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
               {card.revision.map((season) => (
                 <Link
                   key={`${card.fullCode}-${season}`}
-                  href={`/archive/card/${season}/${card.fullCode}`}
+                  href={`/archive/card/${season}/${card.fullCode}?from=card&code=${card.fullCode}`}
                 >
                   {season}
                 </Link>

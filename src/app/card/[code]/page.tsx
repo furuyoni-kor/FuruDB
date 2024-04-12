@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useParams } from "next/navigation";
+import React, { useState, useMemo, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import CardComponent from "@/components/card/Card";
 import AttackCard from "@/components/card/AttackCard";
@@ -10,6 +10,9 @@ import EnhancementCard from "@/components/card/EnhancementCard";
 import { useI18nContext } from "@/context/i18n.context";
 
 import { getCardByCode } from "@/services/card.service";
+
+import { BaseButton } from "@/styles/index.style";
+import { CardPageWrapper, CardPreviousLinkWrapper } from "@/styles/card.style";
 
 import type { NextPage } from "next";
 import type { SuccessResponse } from "@/types/service.type";
@@ -21,6 +24,9 @@ import type {
 
 const CardDetailPage: NextPage = () => {
   const I18n = useI18nContext();
+
+  const params = useParams();
+  const router = useRouter();
 
   const [card, setCard] = useState<Card | null>(null);
 
@@ -43,8 +49,6 @@ const CardDetailPage: NextPage = () => {
     };
   }, [card]);
 
-  const params = useParams();
-
   useEffect(() => {
     const fetchCard = async () => {
       const lang = I18n.language;
@@ -61,13 +65,26 @@ const CardDetailPage: NextPage = () => {
   }, [I18n.language]);
 
   return (
-    card &&
-    ((engData.type === "attack" && (
-      <AttackCard card={card as AttackCardType} />
-    )) ||
-      (engData.type === "enhancement" && (
-        <EnhancementCard card={card as EnhancementCardType} />
-      )) || <CardComponent card={card} />)
+    <CardPageWrapper>
+      <CardPreviousLinkWrapper>
+        <BaseButton
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.back();
+          }}
+        >
+          이전 페이지로
+        </BaseButton>
+      </CardPreviousLinkWrapper>
+      {card &&
+        ((engData.type === "attack" && (
+          <AttackCard card={card as AttackCardType} />
+        )) ||
+          (engData.type === "enhancement" && (
+            <EnhancementCard card={card as EnhancementCardType} />
+          )) || <CardComponent card={card} />)}
+    </CardPageWrapper>
   );
 };
 

@@ -175,13 +175,28 @@ const CharacterDetailPage: NextPage = () => {
         </CharacterDataWrapper>
       </CharacterInfoWrapper>
       {character.normalCards.length > 0 && (
-        <CardList cards={character.normalCards as Card[]} category="normal" />
+        <CardList
+          char={character.ename}
+          mode={character.mode}
+          cards={character.normalCards as Card[]}
+          category="normal"
+        />
       )}
       {character.specialCards.length > 0 && (
-        <CardList cards={character.specialCards as Card[]} category="special" />
+        <CardList
+          char={character.ename}
+          mode={character.mode}
+          cards={character.specialCards as Card[]}
+          category="special"
+        />
       )}
       {character.extraCards.length > 0 && (
-        <CardList cards={character.extraCards as Card[]} category="aside" />
+        <CardList
+          char={character.ename}
+          mode={character.mode}
+          cards={character.extraCards as Card[]}
+          category="aside"
+        />
       )}
     </CharacterContainer>
   ) : (

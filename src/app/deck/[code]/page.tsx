@@ -283,7 +283,10 @@ const DeckDetailPage: NextPage = () => {
                 </DeckCompleteCardTitle>
                 <DeckCompleteCardList>
                   {normalCards.map((card) => (
-                    <Link key={card.fullCode} href={`/card/${card.fullCode}`}>
+                    <Link
+                      key={card.fullCode}
+                      href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                    >
                       <Image
                         alt={card.fullCode}
                         src={`/images/card/${
@@ -304,7 +307,10 @@ const DeckDetailPage: NextPage = () => {
                 </DeckCompleteCardTitle>
                 <DeckCompleteCardList>
                   {specialCards.map((card) => (
-                    <Link key={card.fullCode} href={`/card/${card.fullCode}`}>
+                    <Link
+                      key={card.fullCode}
+                      href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                    >
                       <Image
                         alt={card.fullCode}
                         src={`/images/card/${

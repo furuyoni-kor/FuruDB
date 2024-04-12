@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import CardComponent from "@/components/card/Card";
 import AttackCard from "@/components/card/AttackCard";
@@ -10,6 +10,9 @@ import EnhancementCard from "@/components/card/EnhancementCard";
 import { useI18nContext } from "@/context/i18n.context";
 
 import { getCardByCodeWithSeason } from "@/services/card.service";
+
+import { BaseButton } from "@/styles/index.style";
+import { CardPageWrapper, CardPreviousLinkWrapper } from "@/styles/card.style";
 
 import type { NextPage } from "next";
 import type { Season } from "@/types/index.type";
@@ -46,6 +49,7 @@ const CardPage: NextPage = () => {
   }, [card]);
 
   const params = useParams();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -67,13 +71,26 @@ const CardPage: NextPage = () => {
   }, [I18n.language]);
 
   return (
-    card &&
-    ((engData.type === "attack" && (
-      <AttackCard card={card as AttackCardType} />
-    )) ||
-      (engData.type === "enhancement" && (
-        <EnhancementCard card={card as EnhancementCardType} />
-      )) || <CardComponent card={card} />)
+    <CardPageWrapper>
+      <CardPreviousLinkWrapper>
+        <BaseButton
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.back();
+          }}
+        >
+          이전 페이지로
+        </BaseButton>
+      </CardPreviousLinkWrapper>
+      {card &&
+        ((engData.type === "attack" && (
+          <AttackCard card={card as AttackCardType} />
+        )) ||
+          (engData.type === "enhancement" && (
+            <EnhancementCard card={card as EnhancementCardType} />
+          )) || <CardComponent card={card} />)}
+    </CardPageWrapper>
   );
 };
 
