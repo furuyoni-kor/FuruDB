@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { KOR_RUBY_WHITESPACE } from "@/constant/card";
+
 import { convertCodeToImage } from "@/utils/card.util";
 
 import { useI18nContext } from "@/context/i18n.context";
@@ -59,14 +61,40 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     };
   }, []);
 
-  const parseJpnName = (name: string) => {
+  const parseJpnName = (
+    name: string,
+    code: keyof typeof KOR_RUBY_WHITESPACE | string
+  ) => {
     const splitedName = name.split("\r\n");
 
     if (splitedName.length === 2) {
-      const [yomigana, name] = splitedName;
+      const [ruby, name] = splitedName;
+
+      if (I18n.language === "kor") {
+        const keys = Object.keys(KOR_RUBY_WHITESPACE);
+
+        if (keys.includes(code)) {
+          const { count, from, split } =
+            KOR_RUBY_WHITESPACE[code as keyof typeof KOR_RUBY_WHITESPACE];
+
+          const splitRuby = split ? ruby.split("").join(" ") : ruby;
+          const rubyWithWhitespace =
+            from === "left"
+              ? Array.from({ length: count }).fill("\xa0").join("") + splitRuby
+              : splitRuby + Array.from({ length: count }).fill("\xa0").join("");
+
+          return (
+            <>
+              <CardYomigana>{rubyWithWhitespace}</CardYomigana>
+              <CardName>{name}</CardName>
+            </>
+          );
+        }
+      }
+
       return (
         <>
-          <CardYomigana>{yomigana}</CardYomigana>
+          <CardYomigana>{ruby}</CardYomigana>
           <CardName>{name}</CardName>
         </>
       );
@@ -95,11 +123,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
       </CardImageWrapper>
       <CardDataWrapper>
         <CardTitle>
-          {I18n.language === "jpn" ? (
-            parseJpnName(card.name)
-          ) : (
-            <CardName>{card.name}</CardName>
-          )}
+          {parseJpnName(card.name, card.fullCode)}
           <CardCode>{card.fullCode}</CardCode>
         </CardTitle>
         <CardInfoWrapper>
