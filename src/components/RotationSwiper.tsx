@@ -11,7 +11,7 @@ import {
   SwiperWrapper,
 } from "@/styles/swiper.style";
 
-import type { FC } from "react";
+import type { FC, UIEvent } from "react";
 import type { CharacterName, EngCharacterName } from "@/types/character.type";
 
 interface RotationSwiperProps {
@@ -36,6 +36,11 @@ const RotationSwiper: FC<RotationSwiperProps> = ({
 
   const padIndex = (num: number) => num.toString().padStart(2, "0");
 
+  const onScroll = (e: React.UIEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     if (swiperRef.current) {
       const swiper = swiperRef.current;
@@ -57,7 +62,7 @@ const RotationSwiper: FC<RotationSwiperProps> = ({
   }, []);
 
   return (
-    <SwiperWrapper ref={swiperRef}>
+    <SwiperWrapper ref={swiperRef} onScroll={onScroll}>
       {engRotation.map((name, index) => (
         <Link key={`swiper-${name}`} href={`/character/${name}`}>
           <RotationWrapper>
