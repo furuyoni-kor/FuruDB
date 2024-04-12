@@ -44,7 +44,7 @@ export const CardDataWrapper = styled.section`
   border-radius: 4px;
 `;
 
-export const CardTitle = styled.div`
+export const CardTitle = styled.h3`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,6 +53,12 @@ export const CardTitle = styled.div`
   row-gap: 16px;
   font-family: "SangSangRock";
   background-color: #000000;
+`;
+
+export const CardYomigana = styled.sup`
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 
 export const CardName = styled.h1`
@@ -138,7 +144,7 @@ export const CardDescription = styled.div`
   word-break: break-word;
 `;
 
-export const CardInfoTitle = styled.div`
+export const CardInfoTitle = styled.h3`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,7 +174,7 @@ export const CardRevision = styled.div`
   border-top: 2px solid #000000;
 `;
 
-export const CardRelatedExtraCards = styled.div`
+export const CardRelatedAsideCards = styled.div`
   display: flex;
   border-top: 2px solid #000000;
 `;
