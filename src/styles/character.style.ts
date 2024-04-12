@@ -14,7 +14,7 @@ export const CharacterListContainer = styled.section`
   flex-wrap: wrap;
 `;
 
-export const CharacterListTitle = styled.h3`
+export const CharacterListTitle = styled.h1`
   display: flex;
   justify-content: center;
   margin-bottom: 60px;
@@ -64,7 +64,7 @@ export const CharacterInfoWrapper = styled.section`
   display: flex;
 `;
 
-export const CharacterTitle = styled.h3`
+export const CharacterTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,13 +82,13 @@ export const CharacterName = styled.h1`
   font-weight: 700;
 `;
 
-export const CharacterCode = styled.h2`
+export const CharacterCode = styled.span`
   color: #dddddd;
   font-size: 2rem;
   font-weight: 700;
 `;
 
-export const CharacterInfoTitle = styled.h3`
+export const CharacterInfoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -15,7 +15,7 @@ export const RecentCharacterRotationContainer = styled.div`
   row-gap: 32px;
 `;
 
-export const RecentCharacterRotationTitle = styled.h2`
+export const RecentCharacterRotationTitle = styled.h1`
   display: flex;
   align-items: center;
   column-gap: 32px;
@@ -25,6 +25,10 @@ export const RecentCharacterRotationTitle = styled.h2`
 
 export const OriginWarPeriod = styled.span`
   font-size: 3rem;
+`;
+
+export const MainIconWrapper = styled.div`
+  display: flex;
 `;
 
 export const RecentCardListWrapper = styled.aside``;

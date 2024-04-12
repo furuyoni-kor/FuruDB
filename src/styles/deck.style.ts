@@ -224,7 +224,7 @@ export const DeckCardListImageSelected = styled.div`
   z-index: 3;
 `;
 
-export const DeckCardTitle = styled.h3`
+export const DeckCardTitle = styled.h1`
   display: flex;
   flex-direction: column;
   font-family: "SangSangRock";
@@ -299,7 +299,7 @@ export const DeckCompleteCardListWrapper = styled.div`
   width: 900px;
 `;
 
-export const DeckCompleteCardTitle = styled.h3`
+export const DeckCompleteCardTitle = styled.div`
   padding: 32px;
   background-color: #000000;
   color: #ffffff;
@@ -329,7 +329,7 @@ export const DeckCompleteCodeWrapper = styled.div`
   text-align: center;
 `;
 
-export const DeckCompleteCodeTitle = styled.h3`
+export const DeckCompleteCodeTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
