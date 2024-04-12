@@ -43,13 +43,13 @@ export const CardImageWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 500px;
 `;
 
 export const CardDataWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 700px;
   font-size: 2rem;
   border: 2px solid #000000;
   border-radius: 4px;
@@ -66,7 +66,7 @@ export const CardTitle = styled.div`
   background-color: #000000;
 `;
 
-export const CardYomigana = styled.sup`
+export const CardRuby = styled.ruby`
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: 700;

@@ -31,7 +31,7 @@ import {
   CardInfoContent,
   CardValueWrapper,
   CardLinkWrapper,
-  CardYomigana,
+  CardRuby,
 } from "@/styles/card.style";
 
 import type { FC } from "react";
@@ -44,8 +44,8 @@ interface CardProps {
 
 const CardComponent: FC<CardProps> = ({ children, card }) => {
   const CARD = {
-    width: 500,
-    height: 700,
+    width: 400,
+    height: 560,
   };
 
   const I18n = useI18nContext();
@@ -85,7 +85,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
 
           return (
             <>
-              <CardYomigana>{rubyWithWhitespace}</CardYomigana>
+              <CardRuby>{rubyWithWhitespace}</CardRuby>
               <CardName>{name}</CardName>
             </>
           );
@@ -94,7 +94,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
 
       return (
         <>
-          <CardYomigana>{ruby}</CardYomigana>
+          <CardRuby>{ruby}</CardRuby>
           <CardName>{name}</CardName>
         </>
       );

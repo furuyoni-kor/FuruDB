@@ -26,6 +26,11 @@ export const KOR_RUBY_WHITESPACE = {
     from: "left",
     split: false,
   },
+  "NA-07-shinra-O-S-4": {
+    count: 0,
+    from: "left",
+    split: true,
+  },
   "NA-08-hagane-O-S-2": {
     count: 15,
     from: "right",
@@ -33,6 +38,11 @@ export const KOR_RUBY_WHITESPACE = {
   },
   "NA-09-chikage-O-S-1": {
     count: 16,
+    from: "right",
+    split: false,
+  },
+  "NA-09-chikage-O-P-4": {
+    count: 4,
     from: "right",
     split: false,
   },
