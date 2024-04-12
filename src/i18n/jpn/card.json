@@ -1,11 +1,11 @@
 {
   "attackCard": {
-    "distance": "距離",
+    "distance": "適正距離",
     "aura": "オーラ",
     "life": "ライフ"
   },
   "enhancementCard": {
-    "enhancement": "封印"
+    "enhancement": "納"
   },
   "specialCard": {
     "cost": "消費"
