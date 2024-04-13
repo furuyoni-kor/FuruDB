@@ -136,10 +136,49 @@ export const validateDeckWithCard = (
 
         if (selectedDeck[data.cardIndex]) return true;
 
-        const anotherDeck = characters[(normalCharIndex + 1) % 2].deck.slice(
-          0,
-          NORMAL_CARDS_COUNT
-        );
+        const anotherCharacter = characters[(normalCharIndex + 1) % 2];
+
+        const anotherDeck = anotherCharacter.deck.slice(0, NORMAL_CARDS_COUNT);
+
+        // 사이네 A1, 토코요 A1 예외처리
+        if (
+          (data.charCode === "NA-02" &&
+            data.mode === "A1" &&
+            anotherCharacter.code === "NA-04" &&
+            anotherCharacter.mode === "A1") ||
+          (data.charCode === "NA-04" &&
+            data.mode === "A1" &&
+            anotherCharacter.code === "NA-02" &&
+            anotherCharacter.mode === "A1")
+        ) {
+          if (
+            data.charCode === "NA-02" &&
+            data.mode === "A1" &&
+            anotherCharacter.code === "NA-04" &&
+            anotherCharacter.mode === "A1"
+          ) {
+            if (data.cardIndex === 0 && anotherCharacter.deck[3]) {
+              if (
+                sumArray(selectedDeck) + sumArray(anotherDeck) <
+                MAX_NORMAL_CARDS_COUNT + 2
+              )
+                return true;
+            }
+          } else if (
+            data.charCode === "NA-04" &&
+            data.mode === "A1" &&
+            anotherCharacter.code === "NA-02" &&
+            anotherCharacter.mode === "A1"
+          ) {
+            if (data.cardIndex === 3 && anotherCharacter.deck[0]) {
+              if (
+                sumArray(selectedDeck) + sumArray(anotherDeck) <
+                MAX_NORMAL_CARDS_COUNT + 2
+              )
+                return true;
+            }
+          }
+        }
 
         if (
           sumArray(selectedDeck) + sumArray(anotherDeck) <

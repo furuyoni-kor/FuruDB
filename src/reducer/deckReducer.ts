@@ -183,6 +183,49 @@ export const deckReducer = (
               ...stateCharacter,
               deck: nextDeckArray as DeckArray,
             };
+
+            // 사이네 A1, 토코요 A1 예외처리
+            if (category === "normal") {
+              const anotherCharacter = state.characters[(charIndex + 1) % 2];
+
+              if (anotherCharacter) {
+                const nextAnotherDeckArray = [...anotherCharacter.deck];
+
+                if (charCode === "NA-02" && mode === "A1") {
+                  if (
+                    anotherCharacter.code === "NA-04" &&
+                    anotherCharacter.mode === "A1"
+                  ) {
+                    if (cardIndex === 0) {
+                      nextAnotherDeckArray[3] = nextDeckArray[cardIndex]
+                        ? 1
+                        : 0;
+                      state.characters[(charIndex + 1) % 2] = {
+                        ...anotherCharacter,
+                        deck: nextAnotherDeckArray as DeckArray,
+                      };
+                    }
+                  }
+                }
+
+                if (charCode === "NA-04" && mode === "A1") {
+                  if (
+                    anotherCharacter.code === "NA-02" &&
+                    anotherCharacter.mode === "A1"
+                  ) {
+                    if (cardIndex === 3) {
+                      nextAnotherDeckArray[0] = nextDeckArray[cardIndex]
+                        ? 1
+                        : 0;
+                      state.characters[(charIndex + 1) % 2] = {
+                        ...anotherCharacter,
+                        deck: nextAnotherDeckArray as DeckArray,
+                      };
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
