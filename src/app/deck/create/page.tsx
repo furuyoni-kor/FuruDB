@@ -77,8 +77,25 @@ const DeckCreatePage: NextPage = () => {
           firstCharacter.mode === "A1" &&
           secondCharacter.code === "NA-02" &&
           secondCharacter.mode === "A1")
-      )
-        return true;
+      ) {
+        if (
+          firstCharacter.code === "NA-02" &&
+          firstCharacter.mode === "A1" &&
+          secondCharacter.code === "NA-04" &&
+          secondCharacter.mode === "A1"
+        ) {
+          if (firstCharacter.deck[0] && secondCharacter.deck[3]) return true;
+        }
+
+        if (
+          firstCharacter.code === "NA-04" &&
+          firstCharacter.mode === "A1" &&
+          secondCharacter.code === "NA-02" &&
+          secondCharacter.mode === "A1"
+        ) {
+          if (firstCharacter.deck[3] && secondCharacter.deck[0]) return true;
+        }
+      }
     }
 
     return false;

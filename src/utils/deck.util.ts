@@ -270,11 +270,11 @@ export const validateDeck = (
 
   return (
     (exceptions?.normalCount && exceptions.normalCount > MAX_NORMAL_CARDS_COUNT
-      ? normalSum >= MAX_NORMAL_CARDS_COUNT
+      ? normalSum === exceptions.normalCount
       : normalSum === MAX_NORMAL_CARDS_COUNT) &&
     (exceptions?.specialCount &&
     exceptions.specialCount >= MAX_SPECIAL_CARDS_COUNT
-      ? specialSum >= MAX_SPECIAL_CARDS_COUNT
+      ? specialSum === exceptions.specialCount
       : specialSum === MAX_SPECIAL_CARDS_COUNT)
   );
 };
