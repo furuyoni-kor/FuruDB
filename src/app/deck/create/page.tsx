@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useReducer } from "react";
+import { useState, useEffect, useMemo, useCallback, useReducer } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -62,6 +62,27 @@ const DeckCreatePage: NextPage = () => {
   const [state, dispatch] = useReducer(deckReducer, {
     characters: [null, null],
   });
+
+  const ensembleException = useMemo(() => {
+    const firstCharacter = state.characters[0];
+    const secondCharacter = state.characters[1];
+
+    if (firstCharacter && secondCharacter) {
+      if (
+        (firstCharacter.code === "NA-02" &&
+          firstCharacter.mode === "A1" &&
+          secondCharacter.code === "NA-04" &&
+          secondCharacter.mode === "A1") ||
+        (firstCharacter.code === "NA-04" &&
+          firstCharacter.mode === "A1" &&
+          secondCharacter.code === "NA-02" &&
+          secondCharacter.mode === "A1")
+      )
+        return true;
+    }
+
+    return false;
+  }, [state.characters[0], state.characters[1]]);
 
   const handleClickCharacterIcon = (
     character: Pick<SelectedCharacter, "code" | "mode" | "name" | "ename">
@@ -294,10 +315,16 @@ const DeckCreatePage: NextPage = () => {
               </StepButton>
               <StepButton
                 disabled={
-                  !validateDeck(
-                    state.characters[0].deck,
-                    state.characters[1].deck
-                  )
+                  ensembleException
+                    ? !validateDeck(
+                        state.characters[0].deck,
+                        state.characters[1].deck,
+                        { normalCount: 8 }
+                      )
+                    : !validateDeck(
+                        state.characters[0].deck,
+                        state.characters[1].deck
+                      )
                 }
                 onClick={handleClickStepBtn("COMPLETE")}
               >

@@ -69,11 +69,39 @@ export const encodeDeckCode = (attrs: DeckCodeAttrs) => {
 export const createDeckCode = (
   firstGoddess: DeckCodeAttrs,
   secondGoddess: DeckCodeAttrs
-) =>
-  firstGoddess.code !== secondGoddess.code &&
-  firstGoddess.code < secondGoddess.code
+) => {
+  // 사이네 A1, 토코요 A1 예외처리
+  if (
+    firstGoddess.code === "NA-02" &&
+    firstGoddess.mode === "A1" &&
+    secondGoddess.code === "NA-04" &&
+    secondGoddess.mode === "A1"
+  ) {
+    const copiedDeck = [...secondGoddess.deck];
+    if (secondGoddess.deck[3]) copiedDeck[3] = 0;
+    return (
+      encodeDeckCode(firstGoddess) +
+      encodeDeckCode({ ...secondGoddess, deck: copiedDeck as DeckArray })
+    );
+  } else if (
+    firstGoddess.code === "NA-04" &&
+    firstGoddess.mode === "A1" &&
+    secondGoddess.code === "NA-02" &&
+    secondGoddess.mode === "A1"
+  ) {
+    const copiedDeck = [...firstGoddess.deck];
+    if (firstGoddess.deck[3]) copiedDeck[3] = 0;
+    return (
+      encodeDeckCode(secondGoddess) +
+      encodeDeckCode({ ...firstGoddess, deck: copiedDeck as DeckArray })
+    );
+  }
+
+  return firstGoddess.code !== secondGoddess.code &&
+    firstGoddess.code < secondGoddess.code
     ? encodeDeckCode(firstGoddess) + encodeDeckCode(secondGoddess)
     : encodeDeckCode(secondGoddess) + encodeDeckCode(firstGoddess);
+};
 
 export const decodeDeckCode = (deckCode: string) => {
   const code = "NA-" + deckCode.slice(0, 2);
@@ -129,10 +157,8 @@ export const validateDeckWithCard = (
       );
 
       if (normalCharIndex !== -1) {
-        const selectedDeck = characters[normalCharIndex].deck.slice(
-          0,
-          NORMAL_CARDS_COUNT
-        );
+        const character = characters[normalCharIndex];
+        const selectedDeck = character.deck.slice(0, NORMAL_CARDS_COUNT);
 
         if (selectedDeck[data.cardIndex]) return true;
 
@@ -142,8 +168,8 @@ export const validateDeckWithCard = (
 
         // 사이네 A1, 토코요 A1 예외처리
         if (
-          (data.charCode === "NA-02" &&
-            data.mode === "A1" &&
+          (character.code === "NA-02" &&
+            character.mode === "A1" &&
             anotherCharacter.code === "NA-04" &&
             anotherCharacter.mode === "A1") ||
           (data.charCode === "NA-04" &&
@@ -152,31 +178,31 @@ export const validateDeckWithCard = (
             anotherCharacter.mode === "A1")
         ) {
           if (
-            data.charCode === "NA-02" &&
-            data.mode === "A1" &&
+            character.code === "NA-02" &&
+            character.mode === "A1" &&
             anotherCharacter.code === "NA-04" &&
             anotherCharacter.mode === "A1"
           ) {
-            if (data.cardIndex === 0 && anotherCharacter.deck[3]) {
-              if (
-                sumArray(selectedDeck) + sumArray(anotherDeck) <
-                MAX_NORMAL_CARDS_COUNT + 2
-              )
-                return true;
-            }
+            if (
+              sumArray(selectedDeck) + sumArray(anotherDeck) <
+              (selectedDeck[0] && anotherCharacter.deck[3]
+                ? MAX_NORMAL_CARDS_COUNT + 1
+                : MAX_NORMAL_CARDS_COUNT)
+            )
+              return true;
           } else if (
-            data.charCode === "NA-04" &&
-            data.mode === "A1" &&
+            character.code === "NA-04" &&
+            character.mode === "A1" &&
             anotherCharacter.code === "NA-02" &&
             anotherCharacter.mode === "A1"
           ) {
-            if (data.cardIndex === 3 && anotherCharacter.deck[0]) {
-              if (
-                sumArray(selectedDeck) + sumArray(anotherDeck) <
-                MAX_NORMAL_CARDS_COUNT + 2
-              )
-                return true;
-            }
+            if (
+              sumArray(selectedDeck) + sumArray(anotherDeck) <
+              (selectedDeck[3] && anotherCharacter.deck[0]
+                ? MAX_NORMAL_CARDS_COUNT + 1
+                : MAX_NORMAL_CARDS_COUNT)
+            )
+              return true;
           }
         }
 
@@ -219,7 +245,14 @@ export const validateDeckWithCard = (
   }
 };
 
-export const validateDeck = (firstDeck: DeckArray, secondDeck: DeckArray) => {
+export const validateDeck = (
+  firstDeck: DeckArray,
+  secondDeck: DeckArray,
+  exceptions?: {
+    normalCount?: number;
+    specialCount?: number;
+  }
+) => {
   const firstNormalCards = firstDeck.slice(0, NORMAL_CARDS_COUNT);
   const firstSpecialCards = firstDeck.slice(
     NORMAL_CARDS_COUNT,
@@ -232,9 +265,17 @@ export const validateDeck = (firstDeck: DeckArray, secondDeck: DeckArray) => {
     NORMAL_CARDS_COUNT + SPECIAL_CARDS_COUNT
   );
 
+  const normalSum = sumArray(firstNormalCards) + sumArray(secondNormalCards);
+  const specialSum = sumArray(firstSpecialCards) + sumArray(secondSpecialCards);
+
   return (
-    sumArray(firstNormalCards) + sumArray(secondNormalCards) === 7 &&
-    sumArray(firstSpecialCards) + sumArray(secondSpecialCards) === 3
+    (exceptions?.normalCount && exceptions.normalCount > MAX_NORMAL_CARDS_COUNT
+      ? normalSum >= MAX_NORMAL_CARDS_COUNT
+      : normalSum === MAX_NORMAL_CARDS_COUNT) &&
+    (exceptions?.specialCount &&
+    exceptions.specialCount >= MAX_SPECIAL_CARDS_COUNT
+      ? specialSum >= MAX_SPECIAL_CARDS_COUNT
+      : specialSum === MAX_SPECIAL_CARDS_COUNT)
   );
 };
 
