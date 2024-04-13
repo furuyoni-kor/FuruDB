@@ -16,5 +16,7 @@
   },
   "normalCard": "통상패",
   "specialCard": "비장패",
-  "code": "덱 코드"
+  "code": "덱 코드",
+  "addFavorite": "즐겨찾기 추가",
+  "removeFavorite": "즐겨찾기 제거"
 }

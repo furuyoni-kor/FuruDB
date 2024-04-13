@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useParams, redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,6 +53,8 @@ interface SpecialCardData extends NormalCardData {
 }
 
 const DeckDetailPage: NextPage = () => {
+  const MAX_STORED_DECKCODE_COUNT = 3;
+
   const TAROT = {
     width: 250,
     height: 500,
@@ -68,6 +70,9 @@ const DeckDetailPage: NextPage = () => {
   const I18n = useI18nContext();
 
   const [deckCode, setDeckCode] = useState((params.code as string) || "");
+  const [favorites, setFavorites] = useState(
+    localStorage.getItem("favorites")?.split(",") || []
+  );
   const [characters, setCharacters] = useState<[Character, Character] | null>(
     null
   );
@@ -79,6 +84,12 @@ const DeckDetailPage: NextPage = () => {
   const [loading, setLoading] = useState(false);
 
   const deckRef = useRef<HTMLDivElement | null>(null);
+
+  const isDeckCodeFavorite = useMemo(() => {
+    if (favorites.includes(deckCode)) return true;
+
+    return false;
+  }, [favorites]);
 
   const handleCopyDeckCode = async (e: React.MouseEvent) => {
     await navigator.clipboard.writeText(deckCode);
@@ -98,6 +109,50 @@ const DeckDetailPage: NextPage = () => {
       link.click();
     }
   };
+
+  const handleAddFavorites = (e: React.MouseEvent) => {
+    if (validateFullDeckCode(deckCode)) {
+      const favorites = localStorage.getItem("favorites");
+
+      if (favorites) {
+        const deckCodesArray = favorites.split(",");
+
+        const nextDeckCodesArray = deckCodesArray.includes(deckCode)
+          ? deckCodesArray.filter((code) => code !== deckCode)
+          : [...deckCodesArray, deckCode];
+
+        if (nextDeckCodesArray.length > 0)
+          localStorage.setItem("favorites", nextDeckCodesArray.join(","));
+        else localStorage.removeItem("favorites");
+
+        setFavorites(nextDeckCodesArray.length > 0 ? nextDeckCodesArray : []);
+      } else {
+        localStorage.setItem("favorites", deckCode);
+        setFavorites([deckCode]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (validateFullDeckCode(deckCode)) {
+    }
+    const storedDeckCodes = localStorage.getItem("stored-deck-codes");
+
+    if (storedDeckCodes) {
+      const deckCodesArray = storedDeckCodes.split(",");
+      const filteredDeckCodes = deckCodesArray.filter(
+        (code) => code !== deckCode
+      );
+
+      if (filteredDeckCodes.length >= MAX_STORED_DECKCODE_COUNT)
+        filteredDeckCodes.pop();
+
+      filteredDeckCodes.unshift(deckCode);
+      localStorage.setItem("stored-deck-codes", filteredDeckCodes.join(","));
+    } else {
+      localStorage.setItem("stored-deck-codes", deckCode);
+    }
+  }, []);
 
   useEffect(() => {
     const sortCards = (
@@ -215,6 +270,11 @@ const DeckDetailPage: NextPage = () => {
             </DeckCodeButton>
             <DeckSaveImageButton onClick={downloadDeckImage}>
               {I18n.t("deck.saveAsImage")}
+            </DeckSaveImageButton>
+            <DeckSaveImageButton onClick={handleAddFavorites}>
+              {isDeckCodeFavorite
+                ? I18n.t("deck.removeFavorite")
+                : I18n.t("deck.addFavorite")}
             </DeckSaveImageButton>
           </DeckCodeWrapper>
           <DeckCompleteWrapper ref={deckRef}>

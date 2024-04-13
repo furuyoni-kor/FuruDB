@@ -16,5 +16,7 @@
   },
   "normalCard": "Normal Card",
   "specialCard": "Special Card",
-  "code": "Code"
+  "code": "Code",
+  "addFavorite": "Add Favorite",
+  "removeFavorite": "Remove Favorite"
 }
