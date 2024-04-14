@@ -17,6 +17,7 @@
   "normalCard": "Normal Card",
   "specialCard": "Special Card",
   "code": "Code",
+  "favorite": "Favorites",
   "addFavorite": "Add Favorite",
   "removeFavorite": "Remove Favorite"
 }

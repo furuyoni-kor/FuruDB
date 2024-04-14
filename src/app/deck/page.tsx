@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
+import DeckAbbreviation from "@/components/deck/DeckAbbreivation";
 
 import { useI18nContext } from "@/context/i18n.context";
 
@@ -13,6 +15,8 @@ import {
   DeckCodeButton,
   DeckPageWrapper,
   DeckMoveToButton,
+  DeckFavorites,
+  DeckFavoritesTitle,
 } from "@/styles/deck.style";
 
 import type { NextPage } from "next";
@@ -23,6 +27,8 @@ const DeckPage: NextPage = () => {
 
   const I18n = useI18nContext();
   const router = useRouter();
+
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   const deckCodeInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -41,6 +47,12 @@ const DeckPage: NextPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFavorites(localStorage.getItem("favorites")?.split(",") || []);
+    }
+  }, []);
+
   return (
     <DeckPageWrapper>
       <DeckCodeWrapper>
@@ -57,6 +69,16 @@ const DeckPage: NextPage = () => {
           <DeckMoveToButton>{I18n.t("deck.createDeck")}</DeckMoveToButton>
         </Link>
       </DeckCodeWrapper>
+      {favorites.length > 0 && (
+        <DeckFavorites>
+          <DeckFavoritesTitle>{I18n.t("deck.favorite")}</DeckFavoritesTitle>
+          {favorites.map((deckCode) => (
+            <Link key={deckCode} href={`/deck/${deckCode}`}>
+              <DeckAbbreviation deckCode={deckCode} />
+            </Link>
+          ))}
+        </DeckFavorites>
+      )}
     </DeckPageWrapper>
   );
 };

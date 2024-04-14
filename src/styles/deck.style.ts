@@ -8,6 +8,72 @@ export const DeckPageWrapper = styled.article`
   align-items: center;
 `;
 
+export const DeckFavorites = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 128px;
+  row-gap: 32px;
+
+  & > a,
+  a:link,
+  a:active,
+  a:visited {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  & > a:hover {
+    color: #888888;
+    text-decoration: none;
+  }
+`;
+
+export const DeckFavoritesTitle = styled.h3`
+  margin-bottom: 32px;
+  font-family: "SangSangRock";
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+`;
+
+export const DeckAbbrevationContainer = styled.div`
+  display: flex;
+  background-color: #ff9baa;
+  border: 4px solid #000000;
+  border-radius: 16px;
+`;
+
+export const DeckAbbreviationImageContainer = styled.div`
+  display: flex;
+
+  & > div {
+    border-right: 4px solid #000000;
+  }
+`;
+
+export const DeckAbbreviationImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  & > img {
+    border-radius: 16px;
+  }
+`;
+
+export const DeckAbbrevationCodeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 2.5rem;
+  font-weight: 700;
+`;
+
+export const DeckAbbrevationCode = styled.span`
+  padding: 16px 32px;
+`;
+
 // 덱 페이지
 
 export const DeckCodeWrapper = styled.div`

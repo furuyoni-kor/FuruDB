@@ -17,6 +17,7 @@
   "normalCard": "通常札",
   "specialCard": "切札",
   "code": "デッキコード",
+  "favorite": "お気に入り",
   "addFavorite": "お気に入り追加",
   "removeFavorite": "お気に入り解除"
 }

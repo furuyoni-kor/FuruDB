@@ -70,9 +70,7 @@ const DeckDetailPage: NextPage = () => {
   const I18n = useI18nContext();
 
   const [deckCode, setDeckCode] = useState((params.code as string) || "");
-  const [favorites, setFavorites] = useState(
-    localStorage.getItem("favorites")?.split(",") || []
-  );
+  const [favorites, setFavorites] = useState<string[]>([]);
   const [characters, setCharacters] = useState<[Character, Character] | null>(
     null
   );
@@ -111,7 +109,7 @@ const DeckDetailPage: NextPage = () => {
   };
 
   const handleAddFavorites = (e: React.MouseEvent) => {
-    if (validateFullDeckCode(deckCode)) {
+    if (typeof window !== "undefined" && validateFullDeckCode(deckCode)) {
       const favorites = localStorage.getItem("favorites");
 
       if (favorites) {
@@ -134,24 +132,8 @@ const DeckDetailPage: NextPage = () => {
   };
 
   useEffect(() => {
-    if (validateFullDeckCode(deckCode)) {
-    }
-    const storedDeckCodes = localStorage.getItem("stored-deck-codes");
-
-    if (storedDeckCodes) {
-      const deckCodesArray = storedDeckCodes.split(",");
-      const filteredDeckCodes = deckCodesArray.filter(
-        (code) => code !== deckCode
-      );
-
-      if (filteredDeckCodes.length >= MAX_STORED_DECKCODE_COUNT)
-        filteredDeckCodes.pop();
-
-      filteredDeckCodes.unshift(deckCode);
-      localStorage.setItem("stored-deck-codes", filteredDeckCodes.join(","));
-    } else {
-      localStorage.setItem("stored-deck-codes", deckCode);
-    }
+    if (typeof window !== "undefined" && validateFullDeckCode(deckCode))
+      setFavorites(localStorage.getItem("favorites")?.split(",") || []);
   }, []);
 
   useEffect(() => {
