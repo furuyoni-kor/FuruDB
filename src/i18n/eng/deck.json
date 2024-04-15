@@ -1,10 +1,12 @@
 {
+  "title": "Deck",
   "enter": "Enter",
   "enterCode": "Enter Code",
   "createDeck": "Create Deck",
   "copy": "Copy",
   "saveAsImage": "Save As Image",
   "create": {
+    "title": "Build Deck",
     "selectMegami": "Select Megami",
     "buildDeck": "Build Deck",
     "createCode": "Create Code"

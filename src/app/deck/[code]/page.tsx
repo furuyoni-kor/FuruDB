@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useParams, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import html2canvas from "html2canvas";
@@ -52,7 +52,13 @@ interface SpecialCardData extends NormalCardData {
   cost: number;
 }
 
-const DeckDetailPage: NextPage = () => {
+interface PageProps {
+  params: {
+    code: string;
+  };
+}
+
+const DeckDetailPage: NextPage<PageProps> = ({ params }) => {
   const TAROT = {
     width: 250,
     height: 500,
@@ -62,8 +68,6 @@ const DeckDetailPage: NextPage = () => {
     width: 180,
     height: 252,
   };
-
-  const params = useParams();
 
   const I18n = useI18nContext();
 
@@ -236,146 +240,156 @@ const DeckDetailPage: NextPage = () => {
 
   return validateFullDeckCode(deckCode) ? (
     !loading && characters && normalCards && specialCards ? (
-      <DeckPageWrapper>
-        <DeckCompleteContainer>
-          <DeckCodeWrapper>
-            <DeckCodeInput
-              name="deck-code"
-              disabled
-              readOnly
-              value={deckCode}
-            />
-            <DeckCodeButton onClick={handleCopyDeckCode}>
-              {I18n.t("deck.copy")}
-            </DeckCodeButton>
-            <DeckSaveImageButton onClick={downloadDeckImage}>
-              {I18n.t("deck.saveAsImage")}
-            </DeckSaveImageButton>
-            <DeckSaveImageButton onClick={handleAddFavorites}>
-              {isDeckCodeFavorite
-                ? I18n.t("deck.removeFavorite")
-                : I18n.t("deck.addFavorite")}
-            </DeckSaveImageButton>
-          </DeckCodeWrapper>
-          <DeckCompleteWrapper ref={deckRef}>
-            <DeckCompleteCharacters>
-              <DeckCompleteCharacterWrapper>
-                <DeckCompleteCharacterImageWrapper>
-                  <Link
-                    href={`/character/${characters[0].ename}${
-                      characters[0].mode !== "O"
-                        ? `?mode${characters[0].mode}`
-                        : ""
-                    }`}
-                  >
-                    <Image
-                      alt={characters[0].name}
-                      src={`/images/tarot/${
-                        I18n.language
-                      }/${characters[0].code.replace("NA-", "")}-${
-                        characters[0].mode
-                      }.webp`}
-                      title={characters[0].name}
-                      width={TAROT.width}
-                      height={TAROT.height}
-                      priority={true}
-                    />
-                  </Link>
-                </DeckCompleteCharacterImageWrapper>
-                <DeckCompleteCharacterName>
-                  <span>{characters[0].name}</span>
-                </DeckCompleteCharacterName>
-              </DeckCompleteCharacterWrapper>
-              <DeckCompleteCharacterWrapper>
-                <DeckCompleteCharacterImageWrapper>
-                  <Link
-                    href={`/character/${characters[1].ename}${
-                      characters[1].mode !== "O"
-                        ? `?mode${characters[1].mode}`
-                        : ""
-                    }`}
-                  >
-                    <Image
-                      alt={characters[1].name}
-                      src={`/images/tarot/${
-                        I18n.language
-                      }/${characters[1].code.replace("NA-", "")}-${
-                        characters[1].mode
-                      }.webp`}
-                      title={characters[1].name}
-                      width={TAROT.width}
-                      height={TAROT.height}
-                      priority={true}
-                    />
-                  </Link>
-                </DeckCompleteCharacterImageWrapper>
-                <DeckCompleteCharacterName
-                  style={{ borderBottomLeftRadius: 12 }}
-                >
-                  <span>{characters[1].name}</span>
-                </DeckCompleteCharacterName>
-              </DeckCompleteCharacterWrapper>
-            </DeckCompleteCharacters>
-            <DeckCompleteCardListWrapper>
-              <DeckCompleteCardContainer>
-                <DeckCompleteCardTitle style={{ borderTopRightRadius: 12 }}>
-                  {I18n.t("deck.normalCard")}
-                </DeckCompleteCardTitle>
-                <DeckCompleteCardList>
-                  {normalCards.map((card) => (
+      <>
+        <title>
+          {characters[0] && characters[1]
+            ? `${characters[0].name}/${characters[1].name} - ${I18n.t(
+                "index.shortTitle"
+              )}`
+            : I18n.t("index.title")}
+        </title>
+
+        <DeckPageWrapper>
+          <DeckCompleteContainer>
+            <DeckCodeWrapper>
+              <DeckCodeInput
+                name="deck-code"
+                disabled
+                readOnly
+                value={deckCode}
+              />
+              <DeckCodeButton onClick={handleCopyDeckCode}>
+                {I18n.t("deck.copy")}
+              </DeckCodeButton>
+              <DeckSaveImageButton onClick={downloadDeckImage}>
+                {I18n.t("deck.saveAsImage")}
+              </DeckSaveImageButton>
+              <DeckSaveImageButton onClick={handleAddFavorites}>
+                {isDeckCodeFavorite
+                  ? I18n.t("deck.removeFavorite")
+                  : I18n.t("deck.addFavorite")}
+              </DeckSaveImageButton>
+            </DeckCodeWrapper>
+            <DeckCompleteWrapper ref={deckRef}>
+              <DeckCompleteCharacters>
+                <DeckCompleteCharacterWrapper>
+                  <DeckCompleteCharacterImageWrapper>
                     <Link
-                      key={card.fullCode}
-                      href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                      href={`/character/${characters[0].ename}${
+                        characters[0].mode !== "O"
+                          ? `?mode${characters[0].mode}`
+                          : ""
+                      }`}
                     >
                       <Image
-                        alt={card.fullCode}
-                        src={`/images/card/${
+                        alt={characters[0].name}
+                        src={`/images/tarot/${
                           I18n.language
-                        }/${convertCodeToImage(card.fullCode)}.webp`}
-                        title={card.name}
-                        width={CARD.width}
-                        height={CARD.height}
+                        }/${characters[0].code.replace("NA-", "")}-${
+                          characters[0].mode
+                        }.webp`}
+                        title={characters[0].name}
+                        width={TAROT.width}
+                        height={TAROT.height}
                         priority={true}
                       />
                     </Link>
-                  ))}
-                </DeckCompleteCardList>
-              </DeckCompleteCardContainer>
-              <DeckCompleteCardContainer>
-                <DeckCompleteCardTitle>
-                  {I18n.t("deck.specialCard")}
-                </DeckCompleteCardTitle>
-                <DeckCompleteCardList>
-                  {specialCards.map((card) => (
+                  </DeckCompleteCharacterImageWrapper>
+                  <DeckCompleteCharacterName>
+                    <span>{characters[0].name}</span>
+                  </DeckCompleteCharacterName>
+                </DeckCompleteCharacterWrapper>
+                <DeckCompleteCharacterWrapper>
+                  <DeckCompleteCharacterImageWrapper>
                     <Link
-                      key={card.fullCode}
-                      href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                      href={`/character/${characters[1].ename}${
+                        characters[1].mode !== "O"
+                          ? `?mode${characters[1].mode}`
+                          : ""
+                      }`}
                     >
                       <Image
-                        alt={card.fullCode}
-                        src={`/images/card/${
+                        alt={characters[1].name}
+                        src={`/images/tarot/${
                           I18n.language
-                        }/${convertCodeToImage(card.fullCode)}.webp`}
-                        title={card.name}
-                        width={CARD.width}
-                        height={CARD.height}
+                        }/${characters[1].code.replace("NA-", "")}-${
+                          characters[1].mode
+                        }.webp`}
+                        title={characters[1].name}
+                        width={TAROT.width}
+                        height={TAROT.height}
                         priority={true}
                       />
                     </Link>
-                  ))}
-                </DeckCompleteCardList>
-              </DeckCompleteCardContainer>
-              <DeckCompleteCodeWrapper>
-                <DeckCompleteCodeTitle>
-                  {" "}
-                  {I18n.t("deck.code")}
-                </DeckCompleteCodeTitle>
-                <DeckCompleteCodeContent>{deckCode}</DeckCompleteCodeContent>
-              </DeckCompleteCodeWrapper>
-            </DeckCompleteCardListWrapper>
-          </DeckCompleteWrapper>
-        </DeckCompleteContainer>
-      </DeckPageWrapper>
+                  </DeckCompleteCharacterImageWrapper>
+                  <DeckCompleteCharacterName
+                    style={{ borderBottomLeftRadius: 12 }}
+                  >
+                    <span>{characters[1].name}</span>
+                  </DeckCompleteCharacterName>
+                </DeckCompleteCharacterWrapper>
+              </DeckCompleteCharacters>
+              <DeckCompleteCardListWrapper>
+                <DeckCompleteCardContainer>
+                  <DeckCompleteCardTitle style={{ borderTopRightRadius: 12 }}>
+                    {I18n.t("deck.normalCard")}
+                  </DeckCompleteCardTitle>
+                  <DeckCompleteCardList>
+                    {normalCards.map((card) => (
+                      <Link
+                        key={card.fullCode}
+                        href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                      >
+                        <Image
+                          alt={card.fullCode}
+                          src={`/images/card/${
+                            I18n.language
+                          }/${convertCodeToImage(card.fullCode)}.webp`}
+                          title={card.name}
+                          width={CARD.width}
+                          height={CARD.height}
+                          priority={true}
+                        />
+                      </Link>
+                    ))}
+                  </DeckCompleteCardList>
+                </DeckCompleteCardContainer>
+                <DeckCompleteCardContainer>
+                  <DeckCompleteCardTitle>
+                    {I18n.t("deck.specialCard")}
+                  </DeckCompleteCardTitle>
+                  <DeckCompleteCardList>
+                    {specialCards.map((card) => (
+                      <Link
+                        key={card.fullCode}
+                        href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
+                      >
+                        <Image
+                          alt={card.fullCode}
+                          src={`/images/card/${
+                            I18n.language
+                          }/${convertCodeToImage(card.fullCode)}.webp`}
+                          title={card.name}
+                          width={CARD.width}
+                          height={CARD.height}
+                          priority={true}
+                        />
+                      </Link>
+                    ))}
+                  </DeckCompleteCardList>
+                </DeckCompleteCardContainer>
+                <DeckCompleteCodeWrapper>
+                  <DeckCompleteCodeTitle>
+                    {" "}
+                    {I18n.t("deck.code")}
+                  </DeckCompleteCodeTitle>
+                  <DeckCompleteCodeContent>{deckCode}</DeckCompleteCodeContent>
+                </DeckCompleteCodeWrapper>
+              </DeckCompleteCardListWrapper>
+            </DeckCompleteWrapper>
+          </DeckCompleteContainer>
+        </DeckPageWrapper>
+      </>
     ) : (
       <Loading />
     )

@@ -251,111 +251,116 @@ const DeckCreatePage: NextPage = () => {
   }, [I18n.language, step]);
 
   return !loading && characters.length > 0 ? (
-    <DeckPageWrapper>
-      {step === "SELECT" && (
-        <CharacterSelectContainer>
-          <SelectedCharacterImageContainer>
-            <SelectedCharacterImageWrapper>
-              {state.characters[0] && (
-                <>
-                  <Image
-                    alt={`${state.characters[0].code}-${state.characters[0].mode}`}
-                    src={`/images/twit_icon/${state.characters[0].code.replace(
-                      "NA-",
-                      ""
-                    )}-${state.characters[0].mode}.webp`}
-                    title={state.characters[0].name}
-                    width={SELECTED_CHARACTER.width}
-                    height={SELECTED_CHARACTER.height}
-                    priority={true}
-                    onClick={handleClickCharacterImage({
-                      code: state.characters[0].code,
-                      mode: state.characters[0].mode,
-                    })}
-                  />
-                  {parseCharacterName(state.characters[0].name)}
-                </>
-              )}
-            </SelectedCharacterImageWrapper>
-            <SelectedCharacterImageWrapper>
-              {state.characters[1] && (
-                <>
-                  <Image
-                    alt={`${state.characters[1].code}-${state.characters[1].mode}`}
-                    src={`/images/twit_icon/${state.characters[1].code.replace(
-                      "NA-",
-                      ""
-                    )}-${state.characters[1].mode}.webp`}
-                    title={state.characters[1].name}
-                    width={SELECTED_CHARACTER.width}
-                    height={SELECTED_CHARACTER.height}
-                    priority={true}
-                    onClick={handleClickCharacterImage({
-                      code: state.characters[1].code,
-                      mode: state.characters[1].mode,
-                    })}
-                  />
-                  {parseCharacterName(state.characters[1].name)}
-                </>
-              )}
-            </SelectedCharacterImageWrapper>
-          </SelectedCharacterImageContainer>
-          <StepButtonWrapper>
-            <StepButton
-              disabled={!state.characters.every((character) => character)}
-              onClick={handleClickStepBtn("BUILD")}
-            >
-              {I18n.t("deck.create.buildDeck")}
-            </StepButton>
-          </StepButtonWrapper>
-          <IconList
-            characters={characters}
-            selectedCharacters={state.characters}
-            perRow={PER_ROW}
-            onClick={handleClickCharacterIcon}
-          />
-        </CharacterSelectContainer>
-      )}
-      {step === "BUILD" &&
-        charactersWithCards &&
-        state.characters[0] &&
-        state.characters[1] && (
-          <DeckCreateWrapper>
-            <DeckCharacter
-              deck={(state.characters[0] as SelectedCharacter).deck}
-              character={charactersWithCards[0]}
-              onClick={handleClickCardImage}
-            />
+    <>
+      <title>{`${I18n.t("deck.create.title")} - ${I18n.t(
+        "index.shortTitle"
+      )}`}</title>
+      <DeckPageWrapper>
+        {step === "SELECT" && (
+          <CharacterSelectContainer>
+            <SelectedCharacterImageContainer>
+              <SelectedCharacterImageWrapper>
+                {state.characters[0] && (
+                  <>
+                    <Image
+                      alt={`${state.characters[0].code}-${state.characters[0].mode}`}
+                      src={`/images/twit_icon/${state.characters[0].code.replace(
+                        "NA-",
+                        ""
+                      )}-${state.characters[0].mode}.webp`}
+                      title={state.characters[0].name}
+                      width={SELECTED_CHARACTER.width}
+                      height={SELECTED_CHARACTER.height}
+                      priority={true}
+                      onClick={handleClickCharacterImage({
+                        code: state.characters[0].code,
+                        mode: state.characters[0].mode,
+                      })}
+                    />
+                    {parseCharacterName(state.characters[0].name)}
+                  </>
+                )}
+              </SelectedCharacterImageWrapper>
+              <SelectedCharacterImageWrapper>
+                {state.characters[1] && (
+                  <>
+                    <Image
+                      alt={`${state.characters[1].code}-${state.characters[1].mode}`}
+                      src={`/images/twit_icon/${state.characters[1].code.replace(
+                        "NA-",
+                        ""
+                      )}-${state.characters[1].mode}.webp`}
+                      title={state.characters[1].name}
+                      width={SELECTED_CHARACTER.width}
+                      height={SELECTED_CHARACTER.height}
+                      priority={true}
+                      onClick={handleClickCharacterImage({
+                        code: state.characters[1].code,
+                        mode: state.characters[1].mode,
+                      })}
+                    />
+                    {parseCharacterName(state.characters[1].name)}
+                  </>
+                )}
+              </SelectedCharacterImageWrapper>
+            </SelectedCharacterImageContainer>
             <StepButtonWrapper>
-              <StepButton onClick={handleClickStepBtn("SELECT")}>
-                {I18n.t("deck.create.selectMegami")}
-              </StepButton>
               <StepButton
-                disabled={
-                  ensembleException
-                    ? !validateDeck(
-                        state.characters[0].deck,
-                        state.characters[1].deck,
-                        { normalCount: 8 }
-                      )
-                    : !validateDeck(
-                        state.characters[0].deck,
-                        state.characters[1].deck
-                      )
-                }
-                onClick={handleClickStepBtn("COMPLETE")}
+                disabled={!state.characters.every((character) => character)}
+                onClick={handleClickStepBtn("BUILD")}
               >
-                {I18n.t("deck.create.createCode")}
+                {I18n.t("deck.create.buildDeck")}
               </StepButton>
             </StepButtonWrapper>
-            <DeckCharacter
-              deck={(state.characters[1] as SelectedCharacter).deck}
-              character={charactersWithCards[1]}
-              onClick={handleClickCardImage}
+            <IconList
+              characters={characters}
+              selectedCharacters={state.characters}
+              perRow={PER_ROW}
+              onClick={handleClickCharacterIcon}
             />
-          </DeckCreateWrapper>
+          </CharacterSelectContainer>
         )}
-    </DeckPageWrapper>
+        {step === "BUILD" &&
+          charactersWithCards &&
+          state.characters[0] &&
+          state.characters[1] && (
+            <DeckCreateWrapper>
+              <DeckCharacter
+                deck={(state.characters[0] as SelectedCharacter).deck}
+                character={charactersWithCards[0]}
+                onClick={handleClickCardImage}
+              />
+              <StepButtonWrapper>
+                <StepButton onClick={handleClickStepBtn("SELECT")}>
+                  {I18n.t("deck.create.selectMegami")}
+                </StepButton>
+                <StepButton
+                  disabled={
+                    ensembleException
+                      ? !validateDeck(
+                          state.characters[0].deck,
+                          state.characters[1].deck,
+                          { normalCount: 8 }
+                        )
+                      : !validateDeck(
+                          state.characters[0].deck,
+                          state.characters[1].deck
+                        )
+                  }
+                  onClick={handleClickStepBtn("COMPLETE")}
+                >
+                  {I18n.t("deck.create.createCode")}
+                </StepButton>
+              </StepButtonWrapper>
+              <DeckCharacter
+                deck={(state.characters[1] as SelectedCharacter).deck}
+                character={charactersWithCards[1]}
+                onClick={handleClickCardImage}
+              />
+            </DeckCreateWrapper>
+          )}
+      </DeckPageWrapper>
+    </>
   ) : (
     <Loading />
   );

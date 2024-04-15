@@ -54,32 +54,35 @@ const DeckPage: NextPage = () => {
   }, []);
 
   return (
-    <DeckPageWrapper>
-      <DeckCodeWrapper>
-        <DeckCodeInput
-          ref={deckCodeInputRef}
-          name="deck-code"
-          placeholder={I18n.t("deck.enterCode")}
-          maxLength={MAX_INPUT_LENGTH}
-        />
-        <DeckCodeButton onClick={handleEnterDeckCode}>
-          {I18n.t("deck.enter")}
-        </DeckCodeButton>
-        <Link href={`/deck/create`}>
-          <DeckMoveToButton>{I18n.t("deck.createDeck")}</DeckMoveToButton>
-        </Link>
-      </DeckCodeWrapper>
-      {favorites.length > 0 && (
-        <DeckFavorites>
-          <DeckFavoritesTitle>{I18n.t("deck.favorite")}</DeckFavoritesTitle>
-          {favorites.map((deckCode) => (
-            <Link key={deckCode} href={`/deck/${deckCode}`}>
-              <DeckAbbreviation deckCode={deckCode} />
-            </Link>
-          ))}
-        </DeckFavorites>
-      )}
-    </DeckPageWrapper>
+    <>
+      <title>{`${I18n.t("deck.title")} - ${I18n.t("index.shortTitle")}`}</title>
+      <DeckPageWrapper>
+        <DeckCodeWrapper>
+          <DeckCodeInput
+            ref={deckCodeInputRef}
+            name="deck-code"
+            placeholder={I18n.t("deck.enterCode")}
+            maxLength={MAX_INPUT_LENGTH}
+          />
+          <DeckCodeButton onClick={handleEnterDeckCode}>
+            {I18n.t("deck.enter")}
+          </DeckCodeButton>
+          <Link href={`/deck/create`}>
+            <DeckMoveToButton>{I18n.t("deck.createDeck")}</DeckMoveToButton>
+          </Link>
+        </DeckCodeWrapper>
+        {favorites.length > 0 && (
+          <DeckFavorites>
+            <DeckFavoritesTitle>{I18n.t("deck.favorite")}</DeckFavoritesTitle>
+            {favorites.map((deckCode) => (
+              <Link key={deckCode} href={`/deck/${deckCode}`}>
+                <DeckAbbreviation deckCode={deckCode} />
+              </Link>
+            ))}
+          </DeckFavorites>
+        )}
+      </DeckPageWrapper>
+    </>
   );
 };
 

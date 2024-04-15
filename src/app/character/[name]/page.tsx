@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import CardList from "@/components/character/CardList";
@@ -41,13 +41,18 @@ import type {
 } from "@/types/character.type";
 import type { Card } from "@/types/card.type";
 
-const CharacterDetailPage: NextPage = () => {
+interface PageProps {
+  params: {
+    name: EngCharacterName;
+  };
+}
+
+const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
   const TAROT = {
     width: 300,
     height: 600,
   };
 
-  const params = useParams();
   const searchParams = useSearchParams();
 
   const I18n = useI18nContext();
@@ -98,107 +103,114 @@ const CharacterDetailPage: NextPage = () => {
   }, [I18n.language, mode]);
 
   return !loading && character ? (
-    <CharacterContainer>
-      <CharacterInfoWrapper>
-        <CharacterImageWrapper>
-          <Image
-            src={`/images/tarot/${language}/${character.code.replace(
-              "NA-",
-              ""
-            )}-${character.mode}.webp`}
-            alt={`${character.name}-${character.mode}`}
-            width={TAROT.width}
-            height={TAROT.height}
-            priority={true}
-            style={{ borderRadius: 4 }}
-          />
-        </CharacterImageWrapper>
-        <CharacterDataWrapper>
-          <CharacterTitle>
-            <CharacterName>{character.name}</CharacterName>
-            <CharacterCode>{`${character.code}-${character.mode}`}</CharacterCode>
-          </CharacterTitle>
-          <CharacterInfoValueWrapper>
-            <CharacterInfoTitle>
-              <CharacterInfoTitleText>
-                {I18n.t("character.mode")}
-              </CharacterInfoTitleText>
-            </CharacterInfoTitle>
-            <CharacterInfoContent style={{ width: "75%", columnGap: 32 }}>
-              {character.modes.map((mode) => (
-                <CharacterModeButton
-                  key={`${character.ename}-${mode}-btn`}
-                  onClick={changeMode(mode)}
+    <>
+      <title>
+        {character
+          ? `${character.name} - ${I18n.t("index.shortTitle")}`
+          : I18n.t("index.title")}
+      </title>
+      <CharacterContainer>
+        <CharacterInfoWrapper>
+          <CharacterImageWrapper>
+            <Image
+              src={`/images/tarot/${language}/${character.code.replace(
+                "NA-",
+                ""
+              )}-${character.mode}.webp`}
+              alt={`${character.name}-${character.mode}`}
+              width={TAROT.width}
+              height={TAROT.height}
+              priority={true}
+              style={{ borderRadius: 4 }}
+            />
+          </CharacterImageWrapper>
+          <CharacterDataWrapper>
+            <CharacterTitle>
+              <CharacterName>{character.name}</CharacterName>
+              <CharacterCode>{`${character.code}-${character.mode}`}</CharacterCode>
+            </CharacterTitle>
+            <CharacterInfoValueWrapper>
+              <CharacterInfoTitle>
+                <CharacterInfoTitleText>
+                  {I18n.t("character.mode")}
+                </CharacterInfoTitleText>
+              </CharacterInfoTitle>
+              <CharacterInfoContent style={{ width: "75%", columnGap: 32 }}>
+                {character.modes.map((mode) => (
+                  <CharacterModeButton
+                    key={`${character.ename}-${mode}-btn`}
+                    onClick={changeMode(mode)}
+                  >
+                    {mode}
+                  </CharacterModeButton>
+                ))}
+              </CharacterInfoContent>
+            </CharacterInfoValueWrapper>
+            <CharacterInfoValueWrapper>
+              <CharacterInfoTitle>
+                <CharacterInfoTitleText>
+                  {I18n.t("character.weapon")}
+                </CharacterInfoTitleText>
+              </CharacterInfoTitle>
+              <CharacterInfoContent style={{ width: "25%" }}>
+                {character.symbolWeapon}
+              </CharacterInfoContent>
+              <CharacterInfoTitle>
+                <CharacterInfoTitleText>
+                  {I18n.t("character.sub")}
+                </CharacterInfoTitleText>
+              </CharacterInfoTitle>
+              <CharacterInfoContent style={{ width: "25%" }}>
+                {character.mode !== "O" ? character.symbolSub : "-"}
+              </CharacterInfoContent>
+            </CharacterInfoValueWrapper>
+            <CharacterInfoValueWrapper>
+              <CharacterInfoTitle>
+                <CharacterInfoTitleText>
+                  {I18n.t("character.ability")}
+                </CharacterInfoTitleText>
+              </CharacterInfoTitle>
+              <CharacterInfoContent style={{ width: "75%" }}>
+                {character.abilityKeyword}
+              </CharacterInfoContent>
+            </CharacterInfoValueWrapper>
+            <CharacterAbilityDescription>
+              {character.abilityDescription.split("\r\n").map((text, index) => (
+                <CharacterAbilityDescriptionRow
+                  key={`ability-description-row-${index}`}
                 >
-                  {mode}
-                </CharacterModeButton>
+                  {text}
+                </CharacterAbilityDescriptionRow>
               ))}
-            </CharacterInfoContent>
-          </CharacterInfoValueWrapper>
-          <CharacterInfoValueWrapper>
-            <CharacterInfoTitle>
-              <CharacterInfoTitleText>
-                {I18n.t("character.weapon")}
-              </CharacterInfoTitleText>
-            </CharacterInfoTitle>
-            <CharacterInfoContent style={{ width: "25%" }}>
-              {character.symbolWeapon}
-            </CharacterInfoContent>
-            <CharacterInfoTitle>
-              <CharacterInfoTitleText>
-                {I18n.t("character.sub")}
-              </CharacterInfoTitleText>
-            </CharacterInfoTitle>
-            <CharacterInfoContent style={{ width: "25%" }}>
-              {character.mode !== "O" ? character.symbolSub : "-"}
-            </CharacterInfoContent>
-          </CharacterInfoValueWrapper>
-          <CharacterInfoValueWrapper>
-            <CharacterInfoTitle>
-              <CharacterInfoTitleText>
-                {I18n.t("character.ability")}
-              </CharacterInfoTitleText>
-            </CharacterInfoTitle>
-            <CharacterInfoContent style={{ width: "75%" }}>
-              {character.abilityKeyword}
-            </CharacterInfoContent>
-          </CharacterInfoValueWrapper>
-          <CharacterAbilityDescription>
-            {character.abilityDescription.split("\r\n").map((text, index) => (
-              <CharacterAbilityDescriptionRow
-                key={`ability-description-row-${index}`}
-              >
-                {text}
-              </CharacterAbilityDescriptionRow>
-            ))}
-          </CharacterAbilityDescription>
-        </CharacterDataWrapper>
-      </CharacterInfoWrapper>
-      {character.normalCards.length > 0 && (
-        <CardList
-          char={character.ename}
-          mode={character.mode}
-          cards={character.normalCards as Card[]}
-          category="normal"
-        />
-      )}
-      {character.specialCards.length > 0 && (
-        <CardList
-          char={character.ename}
-          mode={character.mode}
-          cards={character.specialCards as Card[]}
-          category="special"
-        />
-      )}
-      {character.extraCards.length > 0 && (
-        <CardList
-          char={character.ename}
-          mode={character.mode}
-          cards={character.extraCards as Card[]}
-          category="aside"
-        />
-      )}
-    </CharacterContainer>
+            </CharacterAbilityDescription>
+          </CharacterDataWrapper>
+        </CharacterInfoWrapper>
+        {character.normalCards.length > 0 && (
+          <CardList
+            char={character.ename}
+            mode={character.mode}
+            cards={character.normalCards as Card[]}
+            category="normal"
+          />
+        )}
+        {character.specialCards.length > 0 && (
+          <CardList
+            char={character.ename}
+            mode={character.mode}
+            cards={character.specialCards as Card[]}
+            category="special"
+          />
+        )}
+        {character.extraCards.length > 0 && (
+          <CardList
+            char={character.ename}
+            mode={character.mode}
+            cards={character.extraCards as Card[]}
+            category="aside"
+          />
+        )}
+      </CharacterContainer>
+    </>
   ) : (
     <Loading />
   );

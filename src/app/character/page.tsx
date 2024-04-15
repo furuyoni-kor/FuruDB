@@ -57,6 +57,9 @@ const CharacterListPage: NextPage = () => {
 
   return characterList.length > 0 ? (
     <>
+      <title>{`${I18n.t("character.title")} - ${I18n.t(
+        "index.shortTitle"
+      )}`}</title>
       <CharacterListTitle>
         <CharacterListTitleText>
           {I18n.t("character.characterList")}

@@ -1,10 +1,12 @@
 {
+  "title": "덱",
   "enter": "입력",
   "enterCode": "코드 입력",
   "createDeck": "덱 생성",
   "copy": "복사",
   "saveAsImage": "이미지로 저장",
   "create": {
+    "title": "덱 구축",
     "selectMegami": "여신 선택",
     "buildDeck": "덱 구축",
     "createCode": "덱 코드 생성"

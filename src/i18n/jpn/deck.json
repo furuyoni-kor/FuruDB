@@ -1,10 +1,12 @@
 {
+  "title": "デッキ",
   "enter": "入力",
   "enterCode": "コード入力",
   "createDeck": "デッキ生成",
   "copy": "コピー",
   "saveAsImage": "イメージで保存",
   "create": {
+    "title": "デッキ構築",
     "selectMegami": "女神選択",
     "buildDeck": "デッキ構築",
     "createCode": "デッキコード生成"

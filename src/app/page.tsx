@@ -108,21 +108,24 @@ const MainPage: NextPage = () => {
   }, [I18n.language]);
 
   return (
-    <MainPageWrapper>
-      {rotation && engRotation && characterList && (
-        <RecentCharacterRotationContainer>
-          <RecentCharacterRotationTitle>
-            {I18n.t("index.originWar")}{" "}
-            <OriginWarPeriod>{originWarPeriod}</OriginWarPeriod>
-          </RecentCharacterRotationTitle>
-          <RotationSwiper
-            characters={characterList}
-            rotation={rotation}
-            engRotation={engRotation}
-          />
-        </RecentCharacterRotationContainer>
-      )}
-    </MainPageWrapper>
+    <>
+      <title>{I18n.t("index.title")}</title>
+      <MainPageWrapper>
+        {rotation && engRotation && characterList && (
+          <RecentCharacterRotationContainer>
+            <RecentCharacterRotationTitle>
+              {I18n.t("index.originWar")}{" "}
+              <OriginWarPeriod>{originWarPeriod}</OriginWarPeriod>
+            </RecentCharacterRotationTitle>
+            <RotationSwiper
+              characters={characterList}
+              rotation={rotation}
+              engRotation={engRotation}
+            />
+          </RecentCharacterRotationContainer>
+        )}
+      </MainPageWrapper>
+    </>
   );
 };
 

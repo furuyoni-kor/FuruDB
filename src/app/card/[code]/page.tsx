@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import CardComponent from "@/components/card/Card";
 import AttackCard from "@/components/card/AttackCard";
@@ -10,6 +10,8 @@ import EnhancementCard from "@/components/card/EnhancementCard";
 import { useI18nContext } from "@/context/i18n.context";
 
 import { getCardByCode } from "@/services/card.service";
+
+import { createCardPageTitle } from "@/utils/card.util";
 
 import { BaseButton } from "@/styles/index.style";
 import { CardPageWrapper, CardPreviousLinkWrapper } from "@/styles/card.style";
@@ -22,10 +24,13 @@ import type {
   EnhancementCard as EnhancementCardType,
 } from "@/types/card.type";
 
-const CardDetailPage: NextPage = () => {
+interface PageProps {
+  params: { code: string };
+}
+
+const CardDetailPage: NextPage<PageProps> = ({ params }) => {
   const I18n = useI18nContext();
 
-  const params = useParams();
   const router = useRouter();
 
   const [card, setCard] = useState<Card | null>(null);
@@ -65,26 +70,37 @@ const CardDetailPage: NextPage = () => {
   }, [I18n.language]);
 
   return (
-    <CardPageWrapper>
-      <CardPreviousLinkWrapper>
-        <BaseButton
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            e.stopPropagation();
-            router.back();
-          }}
-        >
-          {I18n.t("card.toPreviousPage")}
-        </BaseButton>
-      </CardPreviousLinkWrapper>
-      {card &&
-        ((engData.type === "attack" && (
-          <AttackCard card={card as AttackCardType} />
-        )) ||
-          (engData.type === "enhancement" && (
-            <EnhancementCard card={card as EnhancementCardType} />
-          )) || <CardComponent card={card} />)}
-    </CardPageWrapper>
+    <>
+      <title>
+        {card
+          ? `${createCardPageTitle({
+              name: card.name,
+              code: params.code,
+              lang: I18n.language,
+            })} - ${I18n.t("index.shortTitle")}`
+          : I18n.t("index.title")}
+      </title>
+      <CardPageWrapper>
+        <CardPreviousLinkWrapper>
+          <BaseButton
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+              router.back();
+            }}
+          >
+            {I18n.t("card.toPreviousPage")}
+          </BaseButton>
+        </CardPreviousLinkWrapper>
+        {card &&
+          ((engData.type === "attack" && (
+            <AttackCard card={card as AttackCardType} />
+          )) ||
+            (engData.type === "enhancement" && (
+              <EnhancementCard card={card as EnhancementCardType} />
+            )) || <CardComponent card={card} />)}
+      </CardPageWrapper>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ export const BASE_METADATA: Metadata = {
     "FuruDB - All about Furuyoni, Board Game made by BakaFire Party.",
   keywords: ["furuyoni", "board game", "database"],
   creator: "Winters",
-  icons: ["favicon.ico", "/images/twit_icon/21-A1.webp"],
+  icons: ["favicon.ico", "/images/open-graph.jpeg"],
   openGraph: {
     title: "FuruDB - All about Furuyoni, Board Game made by BakaFire Party.",
     description:
@@ -16,7 +16,7 @@ export const BASE_METADATA: Metadata = {
     url: "https://furudb.pages.dev/",
     images: [
       {
-        url: "/images/twit_icon/21.A1.webp",
+        url: "/images/open-graph.jpeg",
         width: 400,
         height: 400,
       },
