@@ -16,7 +16,7 @@ const CardSearchPage: NextPage = () => {
 
   useEffect(() => {}, [I18n.language]);
 
-  return <></>;
+  return redirect("/working");
 };
 
 export default CardSearchPage;
