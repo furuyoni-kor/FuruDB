@@ -24,11 +24,31 @@ const START_SALT = parseInt("100000000000", 2);
 const MODE_TO_NUMBER: { [key in CharacterMode]: number } = {
   O: 0,
   A1: 1,
-  AA1: 2,
   A2: 2,
+  AA1: 3,
 };
 
-const NUMBER_TO_MODE = ["O", "A1", "AA1", "A2"];
+const MODE_TO_NUMBER_EXCEPTION: {
+  [key: string]: { [key in CharacterMode]: number };
+} = {
+  "NA-16": {
+    O: 0,
+    A1: 1,
+    AA1: 2,
+    A2: 3,
+  },
+};
+
+const MODE_TO_NUMBER_EXCEPTION_KEYS = Object.keys(MODE_TO_NUMBER_EXCEPTION);
+
+const NUMBER_TO_MODE = ["O", "A1", "A2", "AA1"];
+
+const NUMBER_TO_MODE_EXCEPTION: {
+  [key: string]: CharacterMode[];
+} = {
+  "NA-16": ["O", "A1", "AA1", "A2"],
+};
+const NUMBER_TO_MODE_EXCEPTION_KEYS = Object.keys(NUMBER_TO_MODE_EXCEPTION);
 
 const convertCodeToArray = (code: string) => {
   const deckArray = (parseInt(code, 16) - START_SALT)
@@ -47,7 +67,9 @@ export const encodeDeckCode = (attrs: DeckCodeAttrs) => {
   const { code, mode, deck } = attrs;
 
   const charNumber = code.replace("NA-", "").padStart(2, "0");
-  const modeNumber = MODE_TO_NUMBER[mode];
+  const modeNumber = MODE_TO_NUMBER_EXCEPTION_KEYS.includes(code)
+    ? MODE_TO_NUMBER_EXCEPTION[code][mode]
+    : MODE_TO_NUMBER[mode];
 
   // 예외 케이스: 야츠하 A1, AA1에 4번 비장패는 1번 비장패로 취급한다.
   if (
@@ -105,23 +127,25 @@ export const createDeckCode = (
 
 export const decodeDeckCode = (deckCode: string) => {
   const code = "NA-" + deckCode.slice(0, 2);
-  const mode = NUMBER_TO_MODE[parseInt(deckCode[2])];
+  const mode = NUMBER_TO_MODE_EXCEPTION_KEYS.includes(code)
+    ? NUMBER_TO_MODE_EXCEPTION[code][parseInt(deckCode[2])]
+    : NUMBER_TO_MODE[parseInt(deckCode[2])];
   const deck = convertCodeToArray(deckCode.slice(3, deckCode.length));
 
   // 예외 케이스: 야츠하 A1, AA1에 4번 비장패는 1번 비장패로 취급한다.
-  if (
-    code === "NA-16" &&
-    (mode === "A1" || mode === "AA1") &&
-    deck[deck.length - 4] === 1
-  ) {
-    const replaceDeck = deck.slice(0, 7).concat(0, 0, 0, 1);
+  // if (
+  //   code === "NA-16" &&
+  //   (mode === "A1" || mode === "AA1") &&
+  //   deck[deck.length - 4] === 1
+  // ) {
+  //   const replaceDeck = deck.slice(0, 7).concat(0, 0, 0, 1);
 
-    return {
-      code,
-      mode,
-      deck: replaceDeck,
-    };
-  }
+  //   return {
+  //     code,
+  //     mode,
+  //     deck: replaceDeck,
+  //   };
+  // }
 
   return {
     code,

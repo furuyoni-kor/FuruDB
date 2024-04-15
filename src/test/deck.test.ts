@@ -19,11 +19,11 @@ const YURINA_O_DECK_CODE = "010F8C";
 
 const SAINE_O_DECK: DeckCodeAttrs = {
   code: "NA-02",
-  mode: "A2",
+  mode: "O",
   deck: [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
 };
 
-const SAINE_O_DECK_CODE = "023C92";
+const SAINE_O_DECK_CODE = "020C92";
 
 const YATSUHA_O_DECK: DeckCodeAttrs = {
   code: "NA-16",
@@ -36,7 +36,7 @@ const YATSUHA_O_DECK_CODE = "160E31";
 const YATSUHA_A1_DECK: DeckCodeAttrs = {
   code: "NA-16",
   mode: "A1",
-  deck: [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+  deck: [1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
 };
 
 const YATSUHA_A1_DECK_CODE = "161E38";
@@ -44,12 +44,12 @@ const YATSUHA_A1_DECK_CODE = "161E38";
 const YATSUHA_AA1_DECK: DeckCodeAttrs = {
   code: "NA-16",
   mode: "AA1",
-  deck: [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+  deck: [1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
 };
 
 const YATSUHA_AA1_DECK_CODE = "162E38";
 
-const YURINA_O_SAINE_O_DECK_CODE = "010F8C023C92";
+const YURINA_O_SAINE_O_DECK_CODE = "010F8C020C92";
 
 describe("덱 코드 생성 테스트", () => {
   test("예시 유리나(O) 덱 코드 생성 테스트", () => {
