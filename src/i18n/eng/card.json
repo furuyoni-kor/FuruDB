@@ -15,5 +15,6 @@
     "season": "Season"
   },
   "revision": "Revision",
-  "toRecentCard": "To recent version"
+  "toRecentCard": "To recent version",
+  "toPreviousPage": "To previous page"
 }

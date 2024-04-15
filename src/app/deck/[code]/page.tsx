@@ -53,8 +53,6 @@ interface SpecialCardData extends NormalCardData {
 }
 
 const DeckDetailPage: NextPage = () => {
-  const MAX_STORED_DECKCODE_COUNT = 3;
-
   const TAROT = {
     width: 250,
     height: 500,
@@ -91,7 +89,7 @@ const DeckDetailPage: NextPage = () => {
 
   const handleCopyDeckCode = async (e: React.MouseEvent) => {
     await navigator.clipboard.writeText(deckCode);
-    alert("덱 코드가 복사되었습니다.");
+    alert(I18n.t("deck.copyDeckCode"));
   };
 
   const downloadDeckImage = async (e: React.MouseEvent) => {

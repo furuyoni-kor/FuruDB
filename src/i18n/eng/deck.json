@@ -17,6 +17,9 @@
   "normalCard": "Normal Card",
   "specialCard": "Special Card",
   "code": "Code",
+  "codeError": "Invalid Code",
+  "codeEmpty": "Code input is empty. Please enter code.",
+  "copyDeckCode": "Copy code successfully.",
   "favorite": "Favorites",
   "addFavorite": "Add Favorite",
   "removeFavorite": "Remove Favorite"

@@ -42,8 +42,8 @@ const DeckPage: NextPage = () => {
       if (inputValue.length > 0) {
         if (validateFullDeckCode(inputValue))
           router.push(`/deck/${inputValue}`);
-        else alert("덱 코드 에러");
-      } else alert("덱 코드가 비어있음");
+        else alert(I18n.t("deck.codeError"));
+      } else alert(I18n.t("deck.codeEmpty"));
     }
   };
 

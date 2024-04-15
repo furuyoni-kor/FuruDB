@@ -74,7 +74,7 @@ const CardDetailPage: NextPage = () => {
             router.back();
           }}
         >
-          이전 페이지로
+          {I18n.t("card.toPreviousPage")}
         </BaseButton>
       </CardPreviousLinkWrapper>
       {card &&
