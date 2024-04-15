@@ -25,7 +25,7 @@ const MODE_TO_NUMBER: { [key in CharacterMode]: number } = {
   O: 0,
   A1: 1,
   AA1: 2,
-  A2: 3,
+  A2: 2,
 };
 
 const NUMBER_TO_MODE = ["O", "A1", "AA1", "A2"];
