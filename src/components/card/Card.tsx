@@ -65,32 +65,32 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     name: string,
     code: keyof typeof KOR_RUBY_WHITESPACE | string
   ) => {
+    if (I18n.language === "kor") {
+      const keys = Object.keys(KOR_RUBY_WHITESPACE);
+
+      if (keys.includes(code)) {
+        const { ruby, count, from, split } =
+          KOR_RUBY_WHITESPACE[code as keyof typeof KOR_RUBY_WHITESPACE];
+
+        const splitRuby = split ? ruby.split("").join(" ") : ruby;
+        const rubyWithWhitespace =
+          from === "left"
+            ? Array.from({ length: count }).fill("\xa0").join("") + splitRuby
+            : splitRuby + Array.from({ length: count }).fill("\xa0").join("");
+
+        return (
+          <>
+            <CardRuby>{rubyWithWhitespace}</CardRuby>
+            <CardName>{name}</CardName>
+          </>
+        );
+      }
+    }
+
     const splitedName = name.split("\r\n");
 
     if (splitedName.length === 2) {
       const [ruby, name] = splitedName;
-
-      if (I18n.language === "kor") {
-        const keys = Object.keys(KOR_RUBY_WHITESPACE);
-
-        if (keys.includes(code)) {
-          const { count, from, split } =
-            KOR_RUBY_WHITESPACE[code as keyof typeof KOR_RUBY_WHITESPACE];
-
-          const splitRuby = split ? ruby.split("").join(" ") : ruby;
-          const rubyWithWhitespace =
-            from === "left"
-              ? Array.from({ length: count }).fill("\xa0").join("") + splitRuby
-              : splitRuby + Array.from({ length: count }).fill("\xa0").join("");
-
-          return (
-            <>
-              <CardRuby>{rubyWithWhitespace}</CardRuby>
-              <CardName>{name}</CardName>
-            </>
-          );
-        }
-      }
 
       return (
         <>
