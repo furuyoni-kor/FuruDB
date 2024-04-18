@@ -277,7 +277,7 @@ const DeckDetailPage: NextPage<PageProps> = ({ params }) => {
                     <Link
                       href={`/character/${characters[0].ename}${
                         characters[0].mode !== "O"
-                          ? `?mode${characters[0].mode}`
+                          ? `?mode=${characters[0].mode}`
                           : ""
                       }`}
                     >

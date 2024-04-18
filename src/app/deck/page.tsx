@@ -60,7 +60,9 @@ const DeckPage: NextPage = () => {
         <DeckCodeWrapper>
           <DeckCodeInput
             ref={deckCodeInputRef}
-            name="deck-code"
+            name="deck-code-input"
+            type="text"
+            autoComplete="false"
             placeholder={I18n.t("deck.enterCode")}
             maxLength={MAX_INPUT_LENGTH}
           />
