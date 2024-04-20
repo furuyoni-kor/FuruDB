@@ -1,4 +1,23 @@
 {
+  "category": {
+    "normal": "通常札",
+    "special": "切札",
+    "transform": "変形",
+    "poison": "毒",
+    "plot": "構想",
+    "undefined": "不定"
+  },
+  "type": {
+    "attack": "攻撃",
+    "action": "行動",
+    "enhancement": "付与",
+    "undefined": "不定"
+  },
+  "subType": {
+    "reaction": "対応",
+    "throughout": "全力",
+    "undefined": "不定"
+  },
   "attackCard": {
     "distance": "適正距離",
     "aura": "オーラ",
@@ -13,6 +32,13 @@
   "extraCard": "追加札",
   "deprecatedCard": {
     "season": "シーズン"
+  },
+  "search": {
+    "result": "検索結果",
+    "count": "枚",
+    "empty": {
+      "shinra": "カードを見つかりません。"
+    }
   },
   "revision": "改正",
   "toRecentCard": "最新のカードへ",

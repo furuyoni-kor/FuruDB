@@ -9,9 +9,10 @@ export type SuccessResponseWithPagination<T> = {
   [key: string]: T;
 } & {
   result: "success";
-  currentPage: number;
+  page: number;
   totalPage: number;
-  length?: number;
+  length: number;
+  totalLength: number;
 };
 
 export interface FailureResponse {

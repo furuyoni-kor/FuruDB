@@ -33,6 +33,19 @@ export const MainIconWrapper = styled.div`
 
 export const RecentCardListWrapper = styled.aside``;
 
+export const BaseInput = styled.input`
+  padding: 16px;
+  font-size: 2rem;
+  border-color: transparent;
+  box-sizing: border-box;
+  outline: none;
+
+  &:disabled {
+    background-color: #555555;
+    color: #ffffff;
+  }
+`;
+
 export const BaseButton = styled.button`
   padding: 16px 32px;
   font-family: "SangSangRock";

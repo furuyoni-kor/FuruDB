@@ -1,18 +1,44 @@
 {
+  "category": {
+    "normal": "Normal",
+    "special": "Special",
+    "transform": "Transform",
+    "poison": "Poison",
+    "plot": "Plot",
+    "undefined": "Undefined"
+  },
+  "type": {
+    "attack": "Attack",
+    "action": "Action",
+    "enhancement": "Enhancement",
+    "undefined": "Undefined"
+  },
+  "subType": {
+    "reaction": "Reaction",
+    "throughout": "Throughout",
+    "undefined": "Undefined"
+  },
   "attackCard": {
     "distance": "Distance",
     "aura": "Aura",
     "life": "Life"
   },
   "enhancementCard": {
-    "enhancement": "Enhancement"
+    "enhancement": "Charge"
   },
   "specialCard": {
     "cost": "Cost"
   },
-  "extraCard": "ExtraCard",
+  "extraCard": "Aside",
   "deprecatedCard": {
     "season": "Season"
+  },
+  "search": {
+    "result": "Search Result",
+    "count": "",
+    "empty": {
+      "shinra": "I don't know that card."
+    }
   },
   "revision": "Revision",
   "toRecentCard": "To recent version",

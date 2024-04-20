@@ -7,7 +7,14 @@ import { createQueryString } from "@/utils/service.util";
 import type { Language, Season } from "@/types/index.type";
 import type { Response } from "@/types/service.type";
 import type { EngCharacterName, CharacterMode } from "@/types/character.type";
-import type { Card, CharacterCards, DeprecatedCard } from "@/types/card.type";
+import type {
+  Card,
+  CardCategory,
+  CardSubType,
+  CardType,
+  CharacterCards,
+  DeprecatedCard,
+} from "@/types/card.type";
 
 export const getCardByCode = async (code: string, lang: Language | null) => {
   const queryString = createQueryString([["lang", lang || DEFAULT_LANG]]);
@@ -53,10 +60,27 @@ export const getCardByCodeWithSeason = async (
   return response;
 };
 
-export const searchCardByKeyword = async (keyword: string, lang?: Language) => {
+export const searchCardsByKeyword = async (
+  keyword: string,
+  options: {
+    lang?: Language;
+    category: CardCategory | "";
+    type: CardType | "";
+    subType: CardSubType | "";
+    page: number;
+    per?: number;
+  }
+) => {
+  const { lang, category, type, subType, page, per } = options;
+
   const queryString = createQueryString([
     ["keyword", keyword],
     ["lang", lang || DEFAULT_LANG],
+    ["category", category],
+    ["type", type],
+    ["sub", subType],
+    ["page", page.toString()],
+    ["per", per?.toString() || ""],
   ]);
 
   const response = await https.get<Response<Card[]>>(

@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 
+import CardMagnifier from "../card/CardMagnifier";
+
 import { useI18nContext } from "@/context/i18n.context";
 
 import { MAX_NORMAL_CARDS_COUNT } from "@/constant/deck";
-
-import { convertCodeToImage } from "@/utils/card.util";
 
 import {
   DeckContainer,
@@ -42,6 +42,13 @@ const DeckCharacter: FC<DeckProps> = ({ deck, character, onClick }) => {
     width: 100,
     height: 140,
   };
+
+  const CARD_HOVER = {
+    width: 500,
+    height: 700,
+    top: -220,
+  };
+  const HOVER = 116;
 
   const { code, mode, name, normalCards, specialCards } = character;
 
@@ -95,34 +102,27 @@ const DeckCharacter: FC<DeckProps> = ({ deck, character, onClick }) => {
           </DeckCardTitle>
           <DeckCardList>
             {normalCards.map((card, index) => (
-              <DeckCardListImageWrapper key={card.fullCode}>
-                <Image
-                  alt={card.fullCode}
+              <DeckCardListImageWrapper
+                key={card.fullCode}
+                onClick={onClick({
+                  charCode: character.code,
+                  category: "normal",
+                  mode: character.mode,
+                  cardIndex: index,
+                })}
+              >
+                <CardMagnifier
                   className={deck[index] ? "selected" : ""}
-                  src={`/images/card/${I18n.language}/${convertCodeToImage(
-                    card.fullCode
-                  )}.webp`}
-                  title={card.name}
-                  width={CARD.width}
-                  height={CARD.height}
-                  priority={true}
-                  onClick={onClick({
-                    charCode: character.code,
-                    category: "normal",
-                    mode: character.mode,
-                    cardIndex: index,
-                  })}
+                  card={card}
+                  cardStyle={CARD}
+                  hoverStyle={CARD_HOVER}
+                  hoverLeft={HOVER}
+                  hoverRight={HOVER}
                 />
                 <DeckCardListImageSelected
                   style={{
                     fontSize: I18n.language === "eng" ? "1.6rem" : "2rem",
                   }}
-                  onClick={onClick({
-                    charCode: character.code,
-                    category: "normal",
-                    mode: character.mode,
-                    cardIndex: index,
-                  })}
                 >
                   <span>{I18n.t("deck.build.selected")}</span>
                 </DeckCardListImageSelected>
@@ -155,29 +155,20 @@ const DeckCharacter: FC<DeckProps> = ({ deck, character, onClick }) => {
                   cardIndex: index,
                 })}
               >
-                <Image
-                  alt={card.fullCode}
+                <CardMagnifier
                   className={
                     deck[index + MAX_NORMAL_CARDS_COUNT] ? "selected" : ""
                   }
-                  src={`/images/card/${I18n.language}/${convertCodeToImage(
-                    card.fullCode
-                  )}.webp`}
-                  title={card.name}
-                  width={CARD.width}
-                  height={CARD.height}
-                  priority={true}
+                  card={card}
+                  cardStyle={CARD}
+                  hoverStyle={CARD_HOVER}
+                  hoverLeft={HOVER}
+                  hoverRight={HOVER}
                 />
                 <DeckCardListImageSelected
                   style={{
                     fontSize: I18n.language === "eng" ? "1.6rem" : "2rem",
                   }}
-                  onClick={onClick({
-                    charCode: character.code,
-                    category: "special",
-                    mode: character.mode,
-                    cardIndex: index,
-                  })}
                 >
                   <span>{I18n.t("deck.build.selected")}</span>
                 </DeckCardListImageSelected>

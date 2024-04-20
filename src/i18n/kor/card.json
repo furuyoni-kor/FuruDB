@@ -1,4 +1,23 @@
 {
+  "category": {
+    "normal": "통상패",
+    "special": "비장패",
+    "transform": "변형",
+    "poison": "독",
+    "plot": "구상",
+    "undefined": "미정"
+  },
+  "type": {
+    "attack": "공격",
+    "action": "행동",
+    "enhancement": "부여",
+    "undefined": "미정"
+  },
+  "subType": {
+    "reaction": "대응",
+    "throughout": "전력",
+    "undefined": "미정"
+  },
   "attackCard": {
     "distance": "적정거리",
     "aura": "오라",
@@ -13,6 +32,13 @@
   "extraCard": "추가패",
   "deprecatedCard": {
     "season": "시즌"
+  },
+  "search": {
+    "result": "검색 결과",
+    "count": "장",
+    "empty": {
+      "shinra": "그런 카드는 모르겠네요."
+    }
   },
   "revision": "개정",
   "toRecentCard": "최신 카드로",

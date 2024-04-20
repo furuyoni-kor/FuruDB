@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { BaseButton } from "@/styles/index.style";
+import { BaseButton, BaseInput } from "@/styles/index.style";
 
 export const DeckPageWrapper = styled.article`
   display: flex;
@@ -81,20 +81,10 @@ export const DeckCodeWrapper = styled.div`
   justify-content: center;
 `;
 
-export const DeckCodeInput = styled.input`
+export const DeckCodeInput = styled(BaseInput)`
   width: 300px;
-  padding: 16px;
-  font-size: 2rem;
-  border-color: transparent;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  box-sizing: border-box;
-  outline: none;
-
-  &:disabled {
-    background-color: #555555;
-    color: #ffffff;
-  }
 `;
 
 export const DeckCodeButton = styled(BaseButton)`
@@ -262,15 +252,15 @@ export const DeckCardListImageWrapper = styled.div`
   display: flex;
   position: relative;
 
-  & > img {
+  & > div {
     cursor: pointer;
   }
 
-  & > img + div {
+  & > div + div {
     display: none;
   }
 
-  & > img.selected + div {
+  & > div.selected + div {
     display: flex;
   }
 `;
