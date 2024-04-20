@@ -28,6 +28,8 @@ export const BASE_METADATA: Metadata = {
 export const DEFAULT_LANG = "kor";
 export const DEFAULT_MODE = "O";
 
+export const MAX_CLIENT_WIDTH = 1200;
+
 export const LOADING_DATA = ["yurina", "saine_a1", "tokoyo_a1"];
 
 export const MAX_CHARACTER_COUNT = 25;

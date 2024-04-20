@@ -1,3 +1,16 @@
+export const CARD_CATEGORY = [
+  "normal",
+  "special",
+  "transform",
+  "poison",
+  "plot",
+  "undefined",
+];
+export const CARD_TYPE = ["attack", "action", "enhancement", "undefined"];
+export const CARD_SUBTYPE = ["reaction", "throughout", "undefined"];
+
+export const EMPTY_DATA = ["shinra"];
+
 export const EXCEPTION_CHARACTER = ["kiriko"];
 
 export const KOR_RUBY_WHITESPACE = {
