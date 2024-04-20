@@ -34,6 +34,8 @@
     "season": "시즌"
   },
   "search": {
+    "placeholder": "키워드 입력",
+    "search": "검색",
     "result": "검색 결과",
     "count": "장",
     "empty": {

@@ -34,6 +34,8 @@
     "season": "Season"
   },
   "search": {
+    "placeholder": "Enter Keyword",
+    "search": "Search",
     "result": "Search Result",
     "count": "",
     "empty": {

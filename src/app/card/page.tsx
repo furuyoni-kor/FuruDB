@@ -114,6 +114,15 @@ const CardSearchPage: NextPage = () => {
     );
   };
 
+  const cardResultRange = useMemo(() => {
+    if (cards && cards.length > 0 && currentPage && totalLength) {
+      return `(${(currentPage - 1) * PAGINATION_PER + 1}-${
+        currentPage === totalPage ? totalLength : currentPage * PAGINATION_PER
+      })`;
+    }
+    return "";
+  }, [currentPage, totalPage, totalLength]);
+
   const fetchOptions = useMemo(() => {
     return {
       lang: language,
@@ -274,11 +283,13 @@ const CardSearchPage: NextPage = () => {
           name="card-search-inpout"
           type="search"
           autoComplete="false"
-          placeholder="키워드 입력 :)"
+          placeholder={I18n.t("card.search.placeholder")}
           maxLength={MAX_INPUT_LENGTH}
           onKeyDown={handlePressEnter}
         />
-        <CardSearchButton onClick={handleClickSearchBtn}>검색</CardSearchButton>
+        <CardSearchButton onClick={handleClickSearchBtn}>
+          {I18n.t("card.search.search")}
+        </CardSearchButton>
       </CardSearchInputWrapper>
       <CardSearchResultContainer>
         {loading ? (
@@ -291,7 +302,7 @@ const CardSearchPage: NextPage = () => {
                 cards.length > 0 &&
                 `${I18n.t("card.search.result")}: ${totalLength}${I18n.t(
                   "card.search.count"
-                )}`}
+                )} ${cardResultRange}`}
             </CardSearchListResultCount>
             <CardSearchListWrapper>
               {cards &&

@@ -34,6 +34,8 @@
     "season": "シーズン"
   },
   "search": {
+    "placeholder": "キーワード入力",
+    "search": "検索",
     "result": "検索結果",
     "count": "枚",
     "empty": {
