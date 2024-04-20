@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import { useI18nContext } from "@/context/i18n.context";
 
@@ -19,14 +19,14 @@ import type { FC } from "react";
 const LoadingComponent: FC = () => {
   const I18n = useI18nContext();
 
-  const [character, setCharacter] = useState<string | null>(null);
+  const character = useMemo(() => {
+    const randomIndex = getRandomNumberBetween(0, LOADING_DATA.length - 1);
+    const character = LOADING_DATA[randomIndex];
+    return character;
+  }, []);
   const [dot, setDot] = useState("");
 
   useEffect(() => {
-    const randomIndex = getRandomNumberBetween(0, LOADING_DATA.length - 1);
-    const character = LOADING_DATA[randomIndex];
-    setCharacter(character);
-
     const intervalId = setInterval(() => {
       setDot((prev) => (prev.length === 3 ? "" : prev + "."));
     }, 1000);
