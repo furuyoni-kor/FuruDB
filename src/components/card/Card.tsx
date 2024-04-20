@@ -116,7 +116,7 @@ const CardComponent: FC<CardProps> = ({ children, card }) => {
     <CardContainer>
       <CardImageWrapper>
         <Image
-          alt={card.fullCode}
+          alt={card.name}
           src={`/images/card/${I18n.language}/${
             (card as DeprecatedCard).season
               ? `${(card as DeprecatedCard).season}/`

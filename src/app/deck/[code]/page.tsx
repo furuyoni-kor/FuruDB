@@ -341,7 +341,7 @@ const DeckDetailPage: NextPage<PageProps> = ({ params }) => {
                         href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
                       >
                         <Image
-                          alt={card.fullCode}
+                          alt={card.name}
                           src={`/images/card/${
                             I18n.language
                           }/${convertCodeToImage(card.fullCode)}.webp`}
@@ -365,7 +365,7 @@ const DeckDetailPage: NextPage<PageProps> = ({ params }) => {
                         href={`/card/${card.fullCode}?from=deck&code=${deckCode}`}
                       >
                         <Image
-                          alt={card.fullCode}
+                          alt={card.name}
                           src={`/images/card/${
                             I18n.language
                           }/${convertCodeToImage(card.fullCode)}.webp`}

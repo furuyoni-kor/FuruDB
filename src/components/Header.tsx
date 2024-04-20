@@ -71,7 +71,7 @@ const Header: FC = () => {
           <Link href="/">
             <HeaderLogoLinkWrapper>
               <Image
-                alt="test"
+                alt="header-chibi"
                 src={`/images/chibi/${character}.webp`}
                 width={80}
                 height={80}

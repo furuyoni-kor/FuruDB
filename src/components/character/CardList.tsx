@@ -61,7 +61,7 @@ const CardList: FC<CardListProps> = ({ char, mode, cards, category }) => {
               src={`/images/card/${I18n.language}/${convertCodeToImage(
                 card.fullCode
               )}.webp`}
-              alt={card.fullCode}
+              alt={card.name}
               title={card.name}
               width={CARD.width}
               height={CARD.height}
