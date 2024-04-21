@@ -158,8 +158,7 @@ const CardSearchPage: NextPage = () => {
       subType: CardSubType | "";
       page: number;
       per: number;
-    },
-    optionChanged: boolean = true
+    }
   ) => {
     if (!loading) {
       setLoaindg(true);
@@ -183,7 +182,7 @@ const CardSearchPage: NextPage = () => {
             subType: options.subType,
           };
 
-          if (optionChanged) {
+          if (isSearchOptionChange(currentSearchOptions, prevOptions)) {
             setPrevOptions(currentSearchOptions);
             setCurrentPage(1);
           }
