@@ -40,9 +40,9 @@ import type {
 
 interface SearchData {
   keyword: string;
-  category: string;
-  type: string;
-  subType: string;
+  category: CardCategory | "";
+  type: CardType | "";
+  subType: CardSubType | "";
 }
 
 const CardSearchPage: NextPage = () => {
@@ -158,7 +158,8 @@ const CardSearchPage: NextPage = () => {
       subType: CardSubType | "";
       page: number;
       per: number;
-    }
+    },
+    optionChanged: boolean = true
   ) => {
     if (!loading) {
       setLoaindg(true);
@@ -182,7 +183,7 @@ const CardSearchPage: NextPage = () => {
             subType: options.subType,
           };
 
-          if (isSearchOptionChange(currentSearchOptions, prevOptions)) {
+          if (optionChanged) {
             setPrevOptions(currentSearchOptions);
             setCurrentPage(1);
           }
@@ -248,94 +249,114 @@ const CardSearchPage: NextPage = () => {
     if (onLoad && cardSearchInputRef.current) {
       const inputValue = cardSearchInputRef.current.value;
 
-      fetchCardsByKeyword(inputValue, fetchOptions);
+      const currentSearchOptions: SearchData = {
+        keyword: inputValue,
+        category: fetchOptions.category,
+        type: fetchOptions.type,
+        subType: fetchOptions.subType,
+      };
+
+      fetchCardsByKeyword(
+        inputValue,
+        isSearchOptionChange(currentSearchOptions, prevOptions)
+          ? {
+              ...fetchOptions,
+              category: prevOptions.category,
+              type: prevOptions.type,
+              subType: prevOptions.subType,
+            }
+          : fetchOptions
+      );
     }
   }, [currentPage]);
 
   return (
-    <CardSearchWrapper>
-      <CardSearchTagListWrapper>
-        <SearchTagList
-          tags={CARD_CATEGORY.map(
-            (category) => I18n.t(`card.category.${category}`) as CardCategory
-          )}
-          value={cardCategory as CardCategory | ""}
-          onClick={handleClickTag(setCardCategory)}
-        />
-        <SearchTagList
-          tags={CARD_TYPE.map(
-            (type) => I18n.t(`card.type.${type}`) as CardType
-          )}
-          value={cardType as CardType | ""}
-          onClick={handleClickTag(setCardType)}
-        />
-        <SearchTagList
-          tags={CARD_SUBTYPE.map(
-            (subType) => I18n.t(`card.subType.${subType}`) as CardSubType
-          )}
-          value={cardSubType as CardSubType | ""}
-          onClick={handleClickTag(setCardSubType)}
-        />
-      </CardSearchTagListWrapper>
-      <CardSearchInputWrapper>
-        <CardSearchInput
-          ref={cardSearchInputRef}
-          name="card-search-inpout"
-          type="search"
-          autoComplete="false"
-          placeholder={I18n.t("card.search.placeholder")}
-          maxLength={MAX_INPUT_LENGTH}
-          onKeyDown={handlePressEnter}
-        />
-        <CardSearchButton onClick={handleClickSearchBtn}>
-          {I18n.t("card.search.search")}
-        </CardSearchButton>
-      </CardSearchInputWrapper>
-      <CardSearchResultContainer>
-        {loading ? (
-          <Loading />
-        ) : cards && cards.length > 0 ? (
-          <>
-            <CardSearchListResultCount>
-              {onLoad &&
-                cards &&
-                cards.length > 0 &&
-                `${I18n.t("card.search.result")}: ${totalLength}${I18n.t(
-                  "card.search.count"
-                )} ${cardResultRange}`}
-            </CardSearchListResultCount>
-            <CardSearchListWrapper>
-              {cards &&
-                cards.length > 0 &&
-                cards.map((card, index) => (
-                  <Link
-                    key={`search-result-${index}-${card.fullCode}`}
-                    href={`/card/${card.fullCode}?${cardLinkQuery}`}
-                  >
-                    <CardMagnifier
-                      card={card}
-                      cardStyle={CARD}
-                      hoverStyle={CARD_HOVER}
-                      hoverLeft={HOVER}
-                      hoverRight={HOVER}
-                    />
-                  </Link>
-                ))}
-            </CardSearchListWrapper>
-            {totalLength > 0 && (
-              <Pagination
-                page={currentPage}
-                totalPage={totalPage}
-                per={PAGINATION_PER}
-                onClick={handleClickPage}
-              />
+    <>
+      <title>{`${I18n.t("card.title")} - ${I18n.t("index.shortTitle")}`}</title>
+      <CardSearchWrapper>
+        <CardSearchTagListWrapper>
+          <SearchTagList
+            tags={CARD_CATEGORY.map(
+              (category) => I18n.t(`card.category.${category}`) as CardCategory
             )}
-          </>
-        ) : (
-          onLoad && <SearchEmptyResult />
-        )}
-      </CardSearchResultContainer>
-    </CardSearchWrapper>
+            value={cardCategory as CardCategory | ""}
+            onClick={handleClickTag(setCardCategory)}
+          />
+          <SearchTagList
+            tags={CARD_TYPE.map(
+              (type) => I18n.t(`card.type.${type}`) as CardType
+            )}
+            value={cardType as CardType | ""}
+            onClick={handleClickTag(setCardType)}
+          />
+          <SearchTagList
+            tags={CARD_SUBTYPE.map(
+              (subType) => I18n.t(`card.subType.${subType}`) as CardSubType
+            )}
+            value={cardSubType as CardSubType | ""}
+            onClick={handleClickTag(setCardSubType)}
+          />
+        </CardSearchTagListWrapper>
+        <CardSearchInputWrapper>
+          <CardSearchInput
+            ref={cardSearchInputRef}
+            name="card-search-inpout"
+            type="search"
+            autoComplete="false"
+            placeholder={I18n.t("card.search.placeholder")}
+            maxLength={MAX_INPUT_LENGTH}
+            onKeyDown={handlePressEnter}
+          />
+          <CardSearchButton onClick={handleClickSearchBtn}>
+            {I18n.t("card.search.search")}
+          </CardSearchButton>
+        </CardSearchInputWrapper>
+        <CardSearchResultContainer>
+          {loading ? (
+            <Loading />
+          ) : cards && cards.length > 0 ? (
+            <>
+              <CardSearchListResultCount>
+                {onLoad &&
+                  cards &&
+                  cards.length > 0 &&
+                  `${I18n.t("card.search.result")}: ${totalLength}${I18n.t(
+                    "card.search.count"
+                  )} ${cardResultRange}`}
+              </CardSearchListResultCount>
+              <CardSearchListWrapper>
+                {cards &&
+                  cards.length > 0 &&
+                  cards.map((card, index) => (
+                    <Link
+                      key={`search-result-${index}-${card.fullCode}`}
+                      href={`/card/${card.fullCode}?${cardLinkQuery}`}
+                    >
+                      <CardMagnifier
+                        card={card}
+                        cardStyle={CARD}
+                        hoverStyle={CARD_HOVER}
+                        hoverLeft={HOVER}
+                        hoverRight={HOVER}
+                      />
+                    </Link>
+                  ))}
+              </CardSearchListWrapper>
+              {totalLength > 0 && (
+                <Pagination
+                  page={currentPage}
+                  totalPage={totalPage}
+                  per={PAGINATION_PER}
+                  onClick={handleClickPage}
+                />
+              )}
+            </>
+          ) : (
+            onLoad && <SearchEmptyResult />
+          )}
+        </CardSearchResultContainer>
+      </CardSearchWrapper>
+    </>
   );
 };
 
