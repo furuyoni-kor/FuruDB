@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { BASE_METADATA } from "@/constant";
 
 import { I18nProvider } from "@/context/i18n.context";
+import { StyleProvider } from "@/context/style.context";
 
 import type { Metadata } from "next";
 
@@ -20,9 +21,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="ko">
       <body className={inter.className}>
         <I18nProvider>
-          <Header />
-          <main id="main-container">{children}</main>
-          <Footer />
+          <StyleProvider>
+            <Header />
+            <main id="main-container">{children}</main>
+            <Footer />
+          </StyleProvider>
         </I18nProvider>
       </body>
     </html>
