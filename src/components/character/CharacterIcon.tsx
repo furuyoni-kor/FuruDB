@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useRef } from "react";
-import Image from "next/image";
+
+import CustomImage from "@/components/Image";
 
 import { EASTEREGG_CHARCODE } from "@/constant/character";
 
@@ -22,8 +23,22 @@ interface CharacterIconProps {
 
 const CharacterIcon: FC<CharacterIconProps> = ({ name, ename, charCode }) => {
   const ICON = {
-    width: 200,
-    height: 200,
+    pc: {
+      width: 200,
+      height: 200,
+    },
+    laptop: {
+      width: 150,
+      height: 150,
+    },
+    tablet: {
+      width: 130,
+      height: 130,
+    },
+    mobile: {
+      width: 100,
+      height: 100,
+    },
   };
 
   const iconRef = useRef<HTMLDivElement | null>(null);
@@ -64,37 +79,62 @@ const CharacterIcon: FC<CharacterIconProps> = ({ name, ename, charCode }) => {
 
   return (
     <CharacterListIconWrapper>
-      <Image
+      <CustomImage
         ref={imageRef}
         alt={name}
         src={`/images/twit_icon/${charCode.toString().padStart(2, "0")}-O.webp`}
         title={name}
-        width={ICON.width}
-        height={ICON.height}
+        size={ICON}
+        style={{
+          borderRadius: 16,
+        }}
+        onMouseEnter={onMouseEnter}
+      />
+      {/* <Image
+        ref={imageRef}
+        alt={name}
+        src={`/images/twit_icon/${charCode.toString().padStart(2, "0")}-O.webp`}
+        title={name}
+        width={ICON.pc.width}
+        height={ICON.pc.height}
         priority={true}
         style={{
           display: "flex",
           borderRadius: 16,
         }}
         onMouseEnter={onMouseEnter}
-      />
+      /> */}
       {EASTEREGG_CHARCODE.includes(charCode) && (
-        <Image
+        <CustomImage
           ref={secondImageRef}
           alt={`${name}-B`}
           title={`${name}-B`}
           src={`/images/twit_icon/${charCode
             .toString()
             .padStart(2, "0")}-O-B.webp`}
-          width={ICON.width}
-          height={ICON.height}
-          priority={true}
+          size={ICON}
           style={{
             display: "none",
             borderRadius: 16,
           }}
           onMouseEnter={onMouseEnter}
         />
+        // <Image
+        //   ref={secondImageRef}
+        //   alt={`${name}-B`}
+        //   title={`${name}-B`}
+        //   src={`/images/twit_icon/${charCode
+        //     .toString()
+        //     .padStart(2, "0")}-O-B.webp`}
+        //   width={ICON.pc.width}
+        //   height={ICON.pc.height}
+        //   priority={true}
+        //   style={{
+        //     display: "none",
+        //     borderRadius: 16,
+        //   }}
+        //   onMouseEnter={onMouseEnter}
+        // />
       )}
       <CharacterListIconNameWrapper
         ref={iconRef}

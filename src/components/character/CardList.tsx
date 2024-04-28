@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+
+import CustomImage from "@/components/Image";
 
 import { EXCEPTION_CHARACTER } from "@/constant/card";
 
@@ -26,8 +27,22 @@ interface CardListProps {
 
 const CardList: FC<CardListProps> = ({ char, mode, cards, category }) => {
   const CARD = {
-    width: 125,
-    height: 175,
+    pc: {
+      width: 125,
+      height: 175,
+    },
+    laptop: {
+      width: 100,
+      height: 140,
+    },
+    tablet: {
+      width: 75,
+      height: 105,
+    },
+    mobile: {
+      width: 50,
+      height: 70,
+    },
   };
 
   const I18n = useI18nContext();
@@ -57,15 +72,13 @@ const CardList: FC<CardListProps> = ({ char, mode, cards, category }) => {
             key={card.fullCode}
             href={`/card/${card.fullCode}?from=character&name=${char}&mode=${mode}`}
           >
-            <Image
+            <CustomImage
               src={`/images/card/${I18n.language}/${convertCodeToImage(
                 card.fullCode
               )}.webp`}
               alt={card.name}
               title={card.name}
-              width={CARD.width}
-              height={CARD.height}
-              priority={true}
+              size={CARD}
               style={{
                 borderRadius: 16,
               }}

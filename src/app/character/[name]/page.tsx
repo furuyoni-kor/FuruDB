@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
 
+import CustomImage from "@/components/Image";
 import CardList from "@/components/character/CardList";
 
 import { DEFAULT_MODE } from "@/constant";
 
 import { useI18nContext } from "@/context/i18n.context";
+import { useStyleContext } from "@/context/style.context";
 
 import { getCharacter } from "@/services/character.service";
 
@@ -49,13 +50,28 @@ interface PageProps {
 
 const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
   const TAROT = {
-    width: 300,
-    height: 600,
+    pc: {
+      width: 300,
+      height: 600,
+    },
+    laptop: {
+      width: 250,
+      height: 500,
+    },
+    tablet: {
+      width: 200,
+      height: 400,
+    },
+    mobile: {
+      width: 150,
+      height: 300,
+    },
   };
 
   const searchParams = useSearchParams();
 
   const I18n = useI18nContext();
+  const style = useStyleContext();
 
   const [character, setCharacter] = useState<Character | null>(null);
   const [mode, setMode] = useState<CharacterMode>(
@@ -63,6 +79,51 @@ const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
   );
   const [language, setLanguage] = useState<Language>(I18n.language);
   const [loading, setLoading] = useState(false);
+
+  const buttonGap = useMemo(() => {
+    switch (style.widthState) {
+      case "pc":
+        return 32;
+      case "laptop":
+        return 32;
+      case "tablet":
+        return 16;
+      case "mobile":
+        return 16;
+      default:
+        return 0;
+    }
+  }, [style.widthState]);
+
+  const engFontSize = useMemo(() => {
+    switch (style.widthState) {
+      case "pc":
+        return "2rem";
+      case "laptop":
+        return "1.6rem";
+      case "tablet":
+        return "1.3rem";
+      case "mobile":
+        return "1rem";
+      default:
+        return "1rem";
+    }
+  }, [style.widthState]);
+
+  const engLineHeight = useMemo(() => {
+    switch (style.widthState) {
+      case "pc":
+        return "48px";
+      case "laptop":
+        return "42px";
+      case "tablet":
+        return "28px";
+      case "mobile":
+        return "20px";
+      default:
+        return "48px";
+    }
+  }, [style.widthState]);
 
   const changeMode = useCallback(
     (mode: CharacterMode) => (e: React.MouseEvent) => {
@@ -112,19 +173,19 @@ const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
       <CharacterContainer>
         <CharacterInfoWrapper>
           <CharacterImageWrapper>
-            <Image
+            <CustomImage
               src={`/images/tarot/${language}/${character.code.replace(
                 "NA-",
                 ""
               )}-${character.mode}.webp`}
               alt={`${character.name}-${character.mode}`}
-              width={TAROT.width}
-              height={TAROT.height}
-              priority={true}
+              size={TAROT}
               style={{ borderRadius: 4 }}
             />
           </CharacterImageWrapper>
-          <CharacterDataWrapper>
+          <CharacterDataWrapper
+            style={I18n.language === "eng" ? { fontSize: engFontSize } : {}}
+          >
             <CharacterTitle>
               <CharacterName>{character.name}</CharacterName>
               <CharacterCode>{`${character.code}-${character.mode}`}</CharacterCode>
@@ -135,7 +196,9 @@ const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
                   {I18n.t("character.mode")}
                 </CharacterInfoTitleText>
               </CharacterInfoTitle>
-              <CharacterInfoContent style={{ width: "75%", columnGap: 32 }}>
+              <CharacterInfoContent
+                style={{ width: "75%", columnGap: buttonGap }}
+              >
                 {character.modes.map((mode) => (
                   <CharacterModeButton
                     key={`${character.ename}-${mode}-btn`}
@@ -174,7 +237,11 @@ const CharacterDetailPage: NextPage<PageProps> = ({ params }) => {
                 {character.abilityKeyword}
               </CharacterInfoContent>
             </CharacterInfoValueWrapper>
-            <CharacterAbilityDescription>
+            <CharacterAbilityDescription
+              style={
+                I18n.language === "eng" ? { lineHeight: engLineHeight } : {}
+              }
+            >
               {character.abilityDescription.split("\r\n").map((text, index) => (
                 <CharacterAbilityDescriptionRow
                   key={`ability-description-row-${index}`}
