@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import "flag-icons";
+
+import CustomImage from "@/components/Image";
 
 import { ENG_CHARACTER_NAME } from "@/constant";
 
@@ -27,12 +29,26 @@ import type { FC } from "react";
 import type { Language } from "@/types/index.type";
 import type { EngCharacterName } from "@/types/character.type";
 
-interface NavLink {
-  name: string;
-  href: string;
-}
-
 const Header: FC = () => {
+  const ICON = {
+    pc: {
+      width: 80,
+      height: 80,
+    },
+    laptop: {
+      width: 80,
+      height: 80,
+    },
+    tablet: {
+      width: 60,
+      height: 60,
+    },
+    mobile: {
+      width: 60,
+      height: 60,
+    },
+  };
+
   const I18n = useI18nContext();
 
   const NAVBAR = [
@@ -70,12 +86,11 @@ const Header: FC = () => {
         <HeaderLogoWrapper>
           <Link href="/">
             <HeaderLogoLinkWrapper>
-              <Image
-                alt="header-chibi"
+              <CustomImage
+                title="header-logo-chibi"
+                alt="header-logo-chibi"
                 src={`/images/chibi/${character}.webp`}
-                width={80}
-                height={80}
-                priority={true}
+                size={ICON}
               />
               <HeaderLogoText>FuruDB</HeaderLogoText>
             </HeaderLogoLinkWrapper>
